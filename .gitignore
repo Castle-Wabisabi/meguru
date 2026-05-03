@@ -1,0 +1,31 @@
+# Windows / macOS system files
+desktop.ini
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Adobe / temp
+*.ai
+*.psd
+~$*
+*.tmp
+
+# Lock files
+*.lock
+.~lock.*
+
+# Build outputs (if added later)
+dist/
+build/
+node_modules/
