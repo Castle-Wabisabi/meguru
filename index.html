@@ -44,6 +44,8 @@
          ⑦ Scarcity「予約する」／⑩ Final「公式サイトから予約する」
          ヘッダー・フローティング・中間CTA は #booking アンカーのまま
          （まず ⑦ Scarcity セクションへスクロールして offer を読ませる動線）
+       - 近隣施設30店をハイパーリンク化（公式 > 食べログ > Google Maps の優先順）：
+         hover時に朱色＋「↗」アイコン表示で外部リンクと一目で分かる
      ==================================================================== -->
 <head>
 <meta charset="UTF-8">
@@ -854,6 +856,19 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   left: 0;
   color: var(--color-vermil);
 }
+.foodwalk-item__list a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.foodwalk-item__list a:hover {
+  color: var(--color-vermil);
+}
+.foodwalk-item__list a:hover::after {
+  content: " ↗";
+  font-size: 10px;
+  opacity: 0.7;
+}
 
 /* ⑦ Scarcity */
 .scarcity {
@@ -1526,13 +1541,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <div class="foodwalk-item__category">ベーカリー・喫茶</div>
           <p class="foodwalk-item__desc">城下町の朝は、地元のパンと、煎れたてのコーヒーから。</p>
           <ul class="foodwalk-item__list">
-            <li>Align Coffee Roaster</li>
-            <li>かわばた喫茶店</li>
-            <li>パンとエスプレッソと姫路城</li>
-            <li>Bakery 燈 Lamp</li>
-            <li>マーガレットスプーン</li>
-            <li>MOKUPAN 2号店</li>
-            <li>カフェ・ド・ムッシュ</li>
+            <li><a href="https://aligncoffeeroaster.com/" target="_blank" rel="noopener">Align Coffee Roaster</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28016672/" target="_blank" rel="noopener">かわばた喫茶店</a></li>
+            <li><a href="https://www.bread-espresso.jp/shop/bread-espresso-and-himeji.html" target="_blank" rel="noopener">パンとエスプレッソと姫路城</a></li>
+            <li><a href="https://bakery-lamp.com/" target="_blank" rel="noopener">Bakery 燈 Lamp</a></li>
+            <li><a href="https://margueritesp.official.ec" target="_blank" rel="noopener">マーガレットスプーン</a></li>
+            <li><a href="https://moku-pan.com/" target="_blank" rel="noopener">MOKUPAN 2号店</a></li>
+            <li><a href="https://www.muche.jp/" target="_blank" rel="noopener">カフェ・ド・ムッシュ</a></li>
           </ul>
         </div>
         <div class="foodwalk-item">
@@ -1540,10 +1555,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <div class="foodwalk-item__category">姫路うどん・ご当地</div>
           <p class="foodwalk-item__desc">姫路名物のえきそば、明石焼き、地魚の海鮮丼。</p>
           <ul class="foodwalk-item__list">
-            <li>讃岐うどん めんめ</li>
-            <li>かな福</li>
-            <li>えきそば 大手前店</li>
-            <li>元祖長浜ラーメン 金豚 東店</li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28005755/" target="_blank" rel="noopener">讃岐うどん めんめ</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28001943/" target="_blank" rel="noopener">かな福</a></li>
+            <li><a href="https://www.maneki-co.com/products/ekisoba/" target="_blank" rel="noopener">えきそば 大手前店</a></li>
+            <li><a href="https://retty.me/area/PRE28/ARE105/SUB10501/100000783816/" target="_blank" rel="noopener">元祖長浜ラーメン 金豚 東店</a></li>
           </ul>
         </div>
         <div class="foodwalk-item">
@@ -1551,16 +1566,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <div class="foodwalk-item__category">居酒屋・日本酒</div>
           <p class="foodwalk-item__desc">地元の人と肩を並べて、播州の地酒で乾杯。姫路おでんも。</p>
           <ul class="foodwalk-item__list">
-            <li>たち花</li>
-            <li>飯酒 ゆき常</li>
-            <li>本町ミヨシ</li>
-            <li>和食居酒屋 四季想作 優陽</li>
-            <li>バーグの名に懸けて 姫路城前店</li>
-            <li>あぶりやき 暖</li>
-            <li>焼肉 千山閣</li>
-            <li>唐々鍋の店 三左衛門店</li>
-            <li>洋食屋ワタナベ</li>
-            <li>とんかつ井上</li>
+            <li><a href="https://himeji-tachibana.foodre.jp/" target="_blank" rel="noopener">たち花</a></li>
+            <li><a href="https://www.hotpepper.jp/strJ004536701/" target="_blank" rel="noopener">飯酒 ゆき常</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28066445/" target="_blank" rel="noopener">本町ミヨシ</a></li>
+            <li><a href="https://shikisousaku-yuuhi.com/" target="_blank" rel="noopener">和食居酒屋 四季想作 優陽</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28070224/" target="_blank" rel="noopener">バーグの名に懸けて 姫路城前店</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28065486/" target="_blank" rel="noopener">あぶりやき 暖</a></li>
+            <li><a href="https://www.senzankaku.net/" target="_blank" rel="noopener">焼肉 千山閣</a></li>
+            <li><a href="https://karakaranabe.jp/" target="_blank" rel="noopener">唐々鍋の店 三左衛門店</a></li>
+            <li><a href="https://himeji-watanabe.sakura.ne.jp/" target="_blank" rel="noopener">洋食屋ワタナベ</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28058851/" target="_blank" rel="noopener">とんかつ井上</a></li>
           </ul>
         </div>
         <div class="foodwalk-item">
@@ -1568,15 +1583,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <div class="foodwalk-item__category">商店街・お土産</div>
           <p class="foodwalk-item__desc">徒歩5分、城下町の商店街。地元のお菓子と、お土産と。</p>
           <ul class="foodwalk-item__list">
-            <li>みゆき通り商店街</li>
-            <li>パステルおみぞ商店街</li>
-            <li>本町商店街</li>
-            <li>二階町商店街</li>
-            <li>西二階町商店街</li>
-            <li>MOLTI ひめじ</li>
-            <li>山陽電車姫路駅 高架下</li>
-            <li>魚町通</li>
-            <li>姫路のれん街</li>
+            <li><a href="https://himeji-miyuki.com/" target="_blank" rel="noopener">みゆき通り商店街</a></li>
+            <li><a href="https://www.omizo.jp/" target="_blank" rel="noopener">パステルおみぞ商店街</a></li>
+            <li><a href="https://maps.google.com/?q=%E6%9C%AC%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97+%E5%A7%AB%E8%B7%AF" target="_blank" rel="noopener">本町商店街</a></li>
+            <li><a href="https://maps.google.com/?q=%E4%BA%8C%E9%9A%8E%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97+%E5%A7%AB%E8%B7%AF" target="_blank" rel="noopener">二階町商店街</a></li>
+            <li><a href="https://www.nishinikaimachi.com/" target="_blank" rel="noopener">西二階町商店街</a></li>
+            <li><a href="https://www.sanyo-railway.co.jp/spot/detail.html?spot_id=16" target="_blank" rel="noopener">MOLTI ひめじ</a></li>
+            <li><a href="https://himeji-festa.com/" target="_blank" rel="noopener">山陽電車姫路駅 高架下</a></li>
+            <li><a href="https://maps.google.com/?q=%E9%AD%9A%E7%94%BA+%E5%A7%AB%E8%B7%AF" target="_blank" rel="noopener">魚町通</a></li>
+            <li><a href="http://himeji-noren.jp/" target="_blank" rel="noopener">姫路のれん街</a></li>
           </ul>
         </div>
       </div>
