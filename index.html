@@ -34,12 +34,42 @@
        - Google Maps を実埋め込み（姫路市総社本町148-1）：
          ⑥Location 全幅マップ（z=15）／⑨Access 詳細マップ（z=17）
          API key不要の output=embed 方式、saturate/contrastで色味調整
+       - OGP / Twitter Card / Favicon / Theme Color を一括追加：
+         og:image は night-view 写真の絶対URL（GitHub Pages基点）
+         favicon は 巡ロゴ.jpg を流用（apple-touch-icon も同じ）
+       - 近隣施設.txt の店舗リストを ⑥-C 食べ歩き 4カードへ反映：
+         朝7店／昼4店／夜10店／寄り道9店、計30店
+         placeholder div → 朱色「・」マーカー付きリスト UL に置換
      ==================================================================== -->
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="姫路城下町 巡 MEGURU — 食・街・湯を巡る、日本リピーターのための1棟貸し宿。">
 <title>姫路城下町 巡 MEGURU | 食・街・湯を巡る、リピーターの宿</title>
+
+<!-- v6: Favicon（巡ロゴ） -->
+<link rel="icon" type="image/jpeg" href="images/logo/巡ロゴ.jpg">
+<link rel="apple-touch-icon" href="images/logo/巡ロゴ.jpg">
+
+<!-- v6: OGP（Open Graph） -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="姫路城下町 巡 MEGURU">
+<meta property="og:title" content="姫路城下町 巡 MEGURU | 食・街・湯を巡る、リピーターの宿">
+<meta property="og:description" content="昭和レトロの一棟貸し宿。日本を巡る、その途中で。次の日本へ、もう一歩奥へ。">
+<meta property="og:url" content="https://castle-wabisabi.github.io/meguru/">
+<meta property="og:image" content="https://castle-wabisabi.github.io/meguru/images/姫路/night-view_02_003.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ja_JP">
+
+<!-- v6: Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="姫路城下町 巡 MEGURU">
+<meta name="twitter:description" content="昭和レトロの一棟貸し宿。日本を巡る、その途中で。">
+<meta name="twitter:image" content="https://castle-wabisabi.github.io/meguru/images/姫路/night-view_02_003.jpg">
+
+<!-- v6: Theme color（モバイルブラウザのアドレスバー） -->
+<meta name="theme-color" content="#1F1F1F">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -795,6 +825,31 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   letter-spacing: 0.1em;
   opacity: 0.6;
 }
+/* v6: 近隣施設の店舗リスト */
+.foodwalk-item__list {
+  list-style: none;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--color-line);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.foodwalk-item__list li {
+  font-family: var(--font-mincho);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+  line-height: 1.6;
+  padding-left: 12px;
+  position: relative;
+}
+.foodwalk-item__list li::before {
+  content: "・";
+  position: absolute;
+  left: 0;
+  color: var(--color-vermil);
+}
 
 /* ⑦ Scarcity */
 .scarcity {
@@ -1466,25 +1521,59 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
           <div class="foodwalk-item__time">朝 — MORNING</div>
           <div class="foodwalk-item__category">ベーカリー・喫茶</div>
           <p class="foodwalk-item__desc">城下町の朝は、地元のパンと、煎れたてのコーヒーから。</p>
-          <div class="foodwalk-item__placeholder">店舗情報・追加予定</div>
+          <ul class="foodwalk-item__list">
+            <li>Align Coffee Roaster</li>
+            <li>かわばた喫茶店</li>
+            <li>パンとエスプレッソと姫路城</li>
+            <li>Bakery 燈 Lamp</li>
+            <li>マーガレットスプーン</li>
+            <li>MOKUPAN 2号店</li>
+            <li>カフェ・ド・ムッシュ</li>
+          </ul>
         </div>
         <div class="foodwalk-item">
           <div class="foodwalk-item__time">昼 — NOON</div>
           <div class="foodwalk-item__category">姫路うどん・ご当地</div>
           <p class="foodwalk-item__desc">姫路名物のえきそば、明石焼き、地魚の海鮮丼。</p>
-          <div class="foodwalk-item__placeholder">店舗情報・追加予定</div>
+          <ul class="foodwalk-item__list">
+            <li>讃岐うどん めんめ</li>
+            <li>かな福</li>
+            <li>えきそば 大手前店</li>
+            <li>元祖長浜ラーメン 金豚 東店</li>
+          </ul>
         </div>
         <div class="foodwalk-item">
           <div class="foodwalk-item__time">夜 — NIGHT</div>
           <div class="foodwalk-item__category">居酒屋・日本酒</div>
           <p class="foodwalk-item__desc">地元の人と肩を並べて、播州の地酒で乾杯。姫路おでんも。</p>
-          <div class="foodwalk-item__placeholder">店舗情報・追加予定</div>
+          <ul class="foodwalk-item__list">
+            <li>たち花</li>
+            <li>飯酒 ゆき常</li>
+            <li>本町ミヨシ</li>
+            <li>和食居酒屋 四季想作 優陽</li>
+            <li>バーグの名に懸けて 姫路城前店</li>
+            <li>あぶりやき 暖</li>
+            <li>焼肉 千山閣</li>
+            <li>唐々鍋の店 三左衛門店</li>
+            <li>洋食屋ワタナベ</li>
+            <li>とんかつ井上</li>
+          </ul>
         </div>
         <div class="foodwalk-item">
           <div class="foodwalk-item__time">寄り道 — STREET</div>
           <div class="foodwalk-item__category">商店街・お土産</div>
           <p class="foodwalk-item__desc">徒歩5分、城下町の商店街。地元のお菓子と、お土産と。</p>
-          <div class="foodwalk-item__placeholder">店舗情報・追加予定</div>
+          <ul class="foodwalk-item__list">
+            <li>みゆき通り商店街</li>
+            <li>パステルおみぞ商店街</li>
+            <li>本町商店街</li>
+            <li>二階町商店街</li>
+            <li>西二階町商店街</li>
+            <li>MOLTI ひめじ</li>
+            <li>山陽電車姫路駅 高架下</li>
+            <li>魚町通</li>
+            <li>姫路のれん街</li>
+          </ul>
         </div>
       </div>
     </div>
