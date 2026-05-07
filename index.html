@@ -40,6 +40,10 @@
        - 近隣施設.txt の店舗リストを ⑥-C 食べ歩き 4カードへ反映：
          朝7店／昼4店／夜10店／寄り道9店、計30店
          placeholder div → 朱色「・」マーカー付きリスト UL に置換
+       - Beds24 予約URLを強CTA 2箇所に紐付け（別タブ・rel=noopener）：
+         ⑦ Scarcity「予約する」／⑩ Final「公式サイトから予約する」
+         ヘッダー・フローティング・中間CTA は #booking アンカーのまま
+         （まず ⑦ Scarcity セクションへスクロールして offer を読ませる動線）
      ==================================================================== -->
 <head>
 <meta charset="UTF-8">
@@ -1590,7 +1594,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
       4名で泊まれば、ひとり 5,500円〜。<br>
       1日1組限定。あなたの家族だけの、ひと棟。
     </p>
-    <a href="#" class="btn btn--large">予約する</a>
+    <a href="https://beds24.com/booking.php?propid=320453&referer=BookingLink" class="btn btn--large" target="_blank" rel="noopener">予約する</a>
   </div>
 </section>
 
@@ -1661,7 +1665,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     <h2 class="final-cta__title">この一晩を、<br>あなたへ。</h2>
 
     <div class="cta-primary">
-      <a href="#" class="btn btn--large">公式サイトから予約する →</a>
+      <a href="https://beds24.com/booking.php?propid=320453&referer=BookingLink" class="btn btn--large" target="_blank" rel="noopener">公式サイトから予約する →</a>
     </div>
 
     <div class="cta-otas">
