@@ -612,8 +612,33 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: block;
 }
 .details__grid img:hover { opacity: 0.88; transform: scale(1.04); }
-/* 表示は最大16枚（4列×4行）。17枚目以降は自動的に非表示 */
-.details__grid img:nth-child(n+17) { display: none; }
+/* 初期表示は8枚まで。9〜16枚目は「もっと見る」ボタンで展開 */
+.details__grid img:nth-child(n+9) { display: none; }
+.details__grid.show-all img:nth-child(n+9):nth-child(-n+16) { display: block; }
+/* 17枚目以降は常に非表示（上限） */
+.details__grid img:nth-child(n+17) { display: none !important; }
+
+/* 「もっと見る」ボタン */
+.details__more {
+  text-align: center;
+  margin-top: 36px;
+  padding: 0 24px;
+}
+.details__more-btn {
+  font-family: var(--font-mincho);
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  padding: 14px 44px;
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-ink);
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.details__more-btn:hover {
+  background: var(--color-ink);
+  color: var(--color-base);
+}
 
 /* Lightbox（拡大表示） */
 .lightbox {
@@ -1517,14 +1542,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     </p>
   </div>
 
-  <div class="details__grid fade-in">
-    <!-- 表示は最大16枚まで。17枚目以降は自動的に非表示になります。 -->
+  <div class="details__grid fade-in" id="detailsGrid">
+    <!-- 初期表示は最大8枚／「もっと見る」で最大16枚まで表示されます。 -->
     <!-- 写真を追加するときは、このコメントの直下に <img> 行を追加してください。 -->
     <!-- 例: <img src="images/備品/IMG_XXXX.jpg" alt="商品名" loading="lazy"> -->
     <img src="images/備品/IMG_0773.jpg" alt="昭和のお菓子バスケット" loading="lazy">
     <img src="images/備品/IMG_0774.jpg" alt="昭和の花柄カップ" loading="lazy">
     <img src="images/備品/IMG_0763.jpg" alt="無人チェックインのウェルカム画面" loading="lazy">
     <img src="images/備品/IMG_0786.jpg" alt="「清潔整頓」のレトロ看板と洗面台" loading="lazy">
+  </div>
+
+  <div class="details__more fade-in" id="detailsMoreWrap">
+    <button type="button" class="details__more-btn" id="detailsMoreBtn" aria-expanded="false">もっと見る ↓</button>
   </div>
 </section>
 
@@ -1900,6 +1929,28 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     window.scrollTo({ top: y, behavior: 'smooth' });
   });
 });
+
+// v6: DETAILS「もっと見る」ボタン（初期8枚→最大16枚）
+const detailsGrid = document.getElementById('detailsGrid');
+const detailsMoreWrap = document.getElementById('detailsMoreWrap');
+const detailsMoreBtn = document.getElementById('detailsMoreBtn');
+if (detailsGrid && detailsMoreBtn) {
+  const totalImgs = detailsGrid.querySelectorAll('img').length;
+  // 写真が8枚以下ならボタン不要
+  if (totalImgs <= 8) {
+    detailsMoreWrap.style.display = 'none';
+  }
+  detailsMoreBtn.addEventListener('click', () => {
+    const isOpen = detailsGrid.classList.toggle('show-all');
+    detailsMoreBtn.textContent = isOpen ? '閉じる ↑' : 'もっと見る ↓';
+    detailsMoreBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (!isOpen) {
+      // 閉じる時、グリッド先頭へスムーススクロール（下のスペースに取り残されないため）
+      const y = detailsGrid.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  });
+}
 
 // v6: DETAILS Lightbox（クリックで拡大表示）
 const lightboxEl = document.getElementById('lightbox');
