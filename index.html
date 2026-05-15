@@ -46,15 +46,12 @@
          （まず ⑦ Scarcity セクションへスクロールして offer を読ませる動線）
        - 近隣施設30店をハイパーリンク化（公式 > 食べログ > Google Maps の優先順）：
          hover時に朱色＋「↗」アイコン表示で外部リンクと一目で分かる
+       - DETAILS 備品ギャラリーセクション追加（④Rooms〜⑤Pleasures の間）：
+         4列正方形サムネイル、クリックで拡大ライトボックス
+         更新方法：images/備品/ に写真追加 + index.html に <img> 1行追記
+         （詳細は images/備品/README.md 参照）
      ==================================================================== -->
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-N5MX684X');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="姫路城下町 巡 MEGURU — 食・街・湯を巡る、日本リピーターのための1棟貸し宿。">
@@ -579,6 +576,85 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   line-height: 2;
   letter-spacing: 0.05em;
   color: var(--color-ink-2);
+}
+
+/* v6: DETAILS 備品ギャラリー + ライトボックス */
+.details-section {
+  padding: var(--space-section) 0;
+  background: var(--color-base);
+}
+.details__head { text-align: center; padding: 0 24px; margin-bottom: 56px; }
+.details__lead {
+  font-family: var(--font-mincho);
+  font-size: 14px;
+  line-height: 2;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-2);
+  max-width: 520px;
+  margin: 24px auto 0;
+}
+.details__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding: 0 24px;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+@media (max-width: 800px) { .details__grid { grid-template-columns: repeat(3, 1fr); gap: 6px; } }
+@media (max-width: 420px) { .details__grid { grid-template-columns: repeat(2, 1fr); } }
+.details__grid img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  cursor: zoom-in;
+  transition: opacity 0.3s ease, transform 0.6s ease;
+  display: block;
+}
+.details__grid img:hover { opacity: 0.88; transform: scale(1.04); }
+
+/* Lightbox（拡大表示） */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,15,15,0.94);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 5vh 5vw;
+  cursor: zoom-out;
+}
+.lightbox.open {
+  display: flex;
+  animation: lightbox-fadein 0.3s ease;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+.lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: rgba(245,240,232,0.1);
+  border: 1px solid rgba(245,240,232,0.35);
+  color: var(--color-base);
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+.lightbox__close:hover { background: rgba(245,240,232,0.22); }
+@keyframes lightbox-fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 /* ⑤ Three Pleasures (食・街・湯) */
@@ -1244,10 +1320,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 </style>
 </head>
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N5MX684X"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 
 <header class="site-header is-on-hero" id="siteHeader">
   <a href="#" class="site-header__logo" aria-label="巡 MEGURU"><img src="images/logo/巡ロゴ.jpg" alt="巡 MEGURU"></a>
@@ -1428,6 +1500,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </article>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- DETAILS — 備品ギャラリー（クリックで拡大） -->
+<section class="details-section" id="details">
+  <div class="details__head fade-in">
+    <span class="section-eyebrow">DETAILS</span>
+    <h2 class="section-title">細部に、<br>宿る。</h2>
+    <p class="details__lead">
+      おもてなしの、ひとつひとつ。<br>
+      昭和の茶器、行灯、看板、ちゃぶ台。<br>
+      手にとって、見て、触れて。
+    </p>
+  </div>
+
+  <div class="details__grid fade-in">
+    <!-- 写真を追加するときは、このコメントの直下に <img> 行を追加してください。 -->
+    <!-- 例: <img src="images/備品/IMG_XXXX.jpg" alt="商品名" loading="lazy"> -->
+    <img src="images/備品/IMG_0773.jpg" alt="昭和のお菓子バスケット" loading="lazy">
+    <img src="images/備品/IMG_0774.jpg" alt="昭和の花柄カップ" loading="lazy">
+    <img src="images/備品/IMG_0763.jpg" alt="無人チェックインのウェルカム画面" loading="lazy">
+    <img src="images/備品/IMG_0786.jpg" alt="「清潔整頓」のレトロ看板と洗面台" loading="lazy">
   </div>
 </section>
 
@@ -1741,6 +1835,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <a href="#booking" class="floating-cta" id="floatingCta">予約する →</a>
 
+<!-- DETAILS ライトボックス -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+  <button class="lightbox__close" id="lightboxClose" aria-label="閉じる">×</button>
+  <img src="" alt="">
+</div>
+
 <script>
 const header = document.getElementById('siteHeader');
 const floatingCta = document.getElementById('floatingCta');
@@ -1797,6 +1897,39 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     window.scrollTo({ top: y, behavior: 'smooth' });
   });
 });
+
+// v6: DETAILS Lightbox（クリックで拡大表示）
+const lightboxEl = document.getElementById('lightbox');
+if (lightboxEl) {
+  const lightboxImg = lightboxEl.querySelector('img');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const galleryImgs = document.querySelectorAll('.details__grid img');
+
+  function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightboxEl.classList.add('open');
+    lightboxEl.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightboxEl.classList.remove('open');
+    lightboxEl.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // 描画完了後にsrcをクリア（フェードアウトを綺麗に見せるため遅延）
+    setTimeout(() => { lightboxImg.src = ''; }, 300);
+  }
+
+  galleryImgs.forEach(img => {
+    img.addEventListener('click', () => openLightbox(img.src, img.alt));
+  });
+  lightboxEl.addEventListener('click', (e) => {
+    if (e.target === lightboxEl || e.target === lightboxClose) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightboxEl.classList.contains('open')) closeLightbox();
+  });
+}
 </script>
 
 </body>
