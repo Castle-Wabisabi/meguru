@@ -612,6 +612,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: block;
 }
 .details__grid img:hover { opacity: 0.88; transform: scale(1.04); }
+/* 表示は最大16枚（4列×4行）。17枚目以降は自動的に非表示 */
+.details__grid img:nth-child(n+17) { display: none; }
 
 /* Lightbox（拡大表示） */
 .lightbox {
@@ -1516,6 +1518,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   </div>
 
   <div class="details__grid fade-in">
+    <!-- 表示は最大16枚まで。17枚目以降は自動的に非表示になります。 -->
     <!-- 写真を追加するときは、このコメントの直下に <img> 行を追加してください。 -->
     <!-- 例: <img src="images/備品/IMG_XXXX.jpg" alt="商品名" loading="lazy"> -->
     <img src="images/備品/IMG_0773.jpg" alt="昭和のお菓子バスケット" loading="lazy">
