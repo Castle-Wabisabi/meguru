@@ -1,0 +1,29 @@
+{
+  "name": "MEGURU — Himeji Castle Town Stay",
+  "short_name": "MEGURU",
+  "description": "A whole house to yourself in Himeji's castle town.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F5F0E8",
+  "theme_color": "#1F1F1F",
+  "icons": [
+    {
+      "src": "../icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "../icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

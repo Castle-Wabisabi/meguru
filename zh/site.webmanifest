@@ -1,0 +1,29 @@
+{
+  "name": "巡 MEGURU — 姬路城下町住宿",
+  "short_name": "巡 MEGURU",
+  "description": "姬路城下町的一栋独享民宿。",
+  "lang": "zh-Hans",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F5F0E8",
+  "theme_color": "#1F1F1F",
+  "icons": [
+    {
+      "src": "../icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "../icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "../icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

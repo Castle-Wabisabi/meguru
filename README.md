@@ -35,6 +35,11 @@ meguru/
 │   ├── script.js        ← 全言語共通のスクリプト（v7で外部化）
 │   ├── font-ko.css      ← 韓国語版のみ追加読み込み（ハングル字形の補完）
 │   └── font-zh.css      ← 中国語版のみ追加読み込み（簡体字字形の補完）
+├── favicon.ico          ← 16/32/48px。16・32はゴシック、48は明朝で描き分け
+├── favicon-32.png
+├── apple-touch-icon.png ← 180px（iOSホーム画面）
+├── icon-192.png / icon-512.png ← Androidホーム画面・PWA
+├── site.webmanifest     ← 各言語ディレクトリにも1つずつ置く（start_urlが自言語トップ）
 ├── 設計書.md            ← LP制作の全設計記録（STEP1〜7 + v1〜v7 履歴）
 ├── archive/             ← 過去版（v6 単一ファイル版など）
 ├── images/
