@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<!-- ====================================================================
+     巡 MEGURU 公式HP / v6 平面図正式版（2026-04-30）
+     v5からの変更点：
+       1. 平面図を正式版に置換（手書きSVG → 実物の平面図画像）
+          スクロール連動の朱色ハイライトを画像上にオーバーレイで実装
+       2. 部屋表記の統一：
+          - 和室 → 和室（布団）
+          - 寝室（2段ベッド） → 個室（2段ベッド）
+       3. 設備の更新：
+          - 洗濯機 → 洗濯乾燥機（ドラム型）
+          - 「リネン・寝具」を追加（10アイコン目）
+       4. リネン関連の補足コピー追加：
+          シーツは布団にセッティング済み・人数分用意
+       5. 押入は管理側収納のためハイライト対象外
+       6. ヒーロー写真クレジット追加（姫路市フォトバンク／Besso城前と同形式）
+     v6 内 微調整：
+       - 平面図ハイライトの座標ズレを修正（SVG → div+%方式に変更）
+       - 表現を「色塗り矩形」→「ブランド色の点滅ドット」に変更
+       - 最終的に「Walking Dot 自動巡回」方式に転換：
+         スクロール連動を完全に廃止。純CSSアニメーションで
+         玄関→和室→ちゃぶ台→個室→洗面→浴室 を 12秒で1周。
+         JS依存ゼロ・モバイル/デスクトップ完全同一・バグリスクなし
+         「巡」というブランド名を視覚で常時表現
+       - 巡ロゴ画像をヘッダーとフッターに配置：
+         JPG白背景のまま filter:invert + mix-blend-mode で
+         暗背景時は白ロゴ／明背景時は黒ロゴに自動切替
+       - 巡ロゴを最終CTAの「ブランドペア表示」にも追加：
+         「YOU ARE HERE 巡 ／ SISTER STAY 侘寂」の対比構造で
+         旧 sister-link（侘寂のみ目立つ）を再構成
+         ※ヒーロー上部とストーリー透かしは試行後に取り消し
+           （ブランド表現が過剰になるため）
+       - Google Maps を実埋め込み（姫路市総社本町148-1）：
+         ⑥Location 全幅マップ（z=15）／⑨Access 詳細マップ（z=17）
+         API key不要の output=embed 方式、saturate/contrastで色味調整
+       - OGP / Twitter Card / Favicon / Theme Color を一括追加：
+         og:image は night-view 写真の絶対URL（GitHub Pages基点）
+         favicon は 巡ロゴ.jpg を流用（apple-touch-icon も同じ）
+       - 近隣施設.txt の店舗リストを ⑥-C 食べ歩き 4カードへ反映：
+         朝7店／昼4店／夜10店／寄り道9店、計30店
+         placeholder div → 朱色「・」マーカー付きリスト UL に置換
+       - Beds24 予約URLを強CTA 2箇所に紐付け（別タブ・rel=noopener）：
+         ⑦ Scarcity「予約する」／⑩ Final「公式サイトから予約する」
+         ヘッダー・フローティング・中間CTA は #booking アンカーのまま
+         （まず ⑦ Scarcity セクションへスクロールして offer を読ませる動線）
+       - 近隣施設30店をハイパーリンク化（公式 > 食べログ > Google Maps の優先順）：
+         hover時に朱色＋「↗」アイコン表示で外部リンクと一目で分かる
+       - DETAILS 備品ギャラリーセクション追加（④Rooms〜⑤Pleasures の間）：
+         4列正方形サムネイル、クリックで拡大ライトボックス
+         更新方法：images/備品/ に写真追加 + index.html に <img> 1行追記
+         （詳細は images/備品/README.md 参照）
+     ==================================================================== -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="巡 MEGURU — 姬路城下町住宿。寻味、漫步、泡汤，为日本重游客准备的一栋独享民宿。">
+<title>巡 MEGURU — 姬路城下町住宿 | 寻味、漫步、泡汤，重游客的独栋之宿</title>
+
+<!-- v7: 正規URL・多言語クラスタ -->
+<link rel="canonical" href="https://castle.wabisabi-himeji.jp/meguru/zh/">
+<link rel="alternate" hreflang="ja" href="https://castle.wabisabi-himeji.jp/meguru/">
+<link rel="alternate" hreflang="en" href="https://castle.wabisabi-himeji.jp/meguru/en/">
+<link rel="alternate" hreflang="ko" href="https://castle.wabisabi-himeji.jp/meguru/ko/">
+<link rel="alternate" hreflang="zh-Hans" href="https://castle.wabisabi-himeji.jp/meguru/zh/">
+<link rel="alternate" hreflang="x-default" href="https://castle.wabisabi-himeji.jp/meguru/">
+
+<!-- v6: Favicon（巡ロゴ） -->
+<link rel="icon" type="image/jpeg" href="../images/logo/巡ロゴ.jpg">
+<link rel="apple-touch-icon" href="../images/logo/巡ロゴ.jpg">
+
+<!-- v6: OGP（Open Graph） -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="巡 MEGURU — 姬路城下町住宿">
+<meta property="og:title" content="巡 MEGURU — 姬路城下町住宿 | 寻味、漫步、泡汤，重游客的独栋之宿">
+<meta property="og:description" content="昭和时代老屋改造的一栋独享民宿。环游日本的路上，往更深处，再走一步。">
+<meta property="og:url" content="https://castle.wabisabi-himeji.jp/meguru/zh/">
+<meta property="og:image" content="https://castle.wabisabi-himeji.jp/meguru/images/姫路/night-view_02_003.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="zh_CN">
+
+<!-- v6: Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="巡 MEGURU — 姬路城下町住宿">
+<meta name="twitter:description" content="昭和时代老屋改造的一栋独享民宿。环游日本的路上。">
+<meta name="twitter:image" content="https://castle.wabisabi-himeji.jp/meguru/images/姫路/night-view_02_003.jpg">
+
+<!-- v6: Theme color（モバイルブラウザのアドレスバー） -->
+<meta name="theme-color" content="#1F1F1F">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../assets/style.css">
+<link rel="stylesheet" href="../assets/font-zh.css">
+</head>
+<body>
+
+<header class="site-header is-on-hero" id="siteHeader">
+  <a href="./" class="site-header__logo" aria-label="巡 MEGURU"><img src="../images/logo/巡ロゴ.jpg" alt="巡 MEGURU"></a>
+  <nav class="site-nav">
+    <ul>
+      <li><a href="#concept">理念</a></li>
+      <li><a href="#rooms">房间</a></li>
+      <li><a href="#pleasures">食・街・湯</a></li>
+      <li><a href="#location">环游姬路</a></li>
+      <li><a href="#booking">预订</a></li>
+    </ul>
+  </nav>
+  <div class="site-header__right">
+    <div class="lang-switch">
+      <a href="../" hreflang="ja" lang="ja">JP</a>
+      <a href="../en/" hreflang="en" lang="en">EN</a>
+      <a href="../ko/" hreflang="ko" lang="ko">KO</a>
+      <span class="active">ZH</span>
+    </div>
+    <a href="#booking" class="header-cta">预订</a>
+  </div>
+</header>
+
+<!-- ① Hero -->
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__lead">HIMEJI CASTLE TOWN STAY</div>
+    <h1 class="hero__title">
+      <span class="meguru-char">巡</span>游日本，<br>途中的这一夜。
+    </h1>
+    <div class="hero__deeper">
+      入夜，抵达城下町。<br>
+      向下一个日本，再深入一步。
+    </div>
+    <div class="hero__sub">
+      巡 MEGURU — 姬路城下町住宿
+      <span class="en">One step deeper into Japan.</span>
+    </div>
+  </div>
+  <div class="hero__scroll">SCROLL</div>
+  <span class="photo-credit">
+    Photo: <a href="https://www.city.himeji.lg.jp/photobank/index.html" target="_blank" rel="noopener">姬路市图片库</a>
+  </span>
+</section>
+
+<!-- ② Concept -->
+<section class="concept has-kanji" id="concept">
+  <span class="kanji-bg kanji-bg--right" aria-hidden="true">次</span>
+  <div class="container">
+    <span class="concept__eyebrow fade-in">CONCEPT</span>
+    <p class="concept__text fade-in">
+      东京、大阪、京都。<br>
+      那些，你早已走过。<br>
+      那么，去下一个日本。<br>
+      <br>
+      姬路，城下町。<br>
+      整栋屋子，只属于你。
+    </p>
+  </div>
+</section>
+
+<!-- ③ Story（v4: 墨黒 × 北斎の波） -->
+<section class="story story--dark">
+  <div class="story__wave"><div class="story__wave-img" id="storyWave"></div></div>
+  <div class="container">
+    <div class="story__grid">
+      <div class="story__body fade-in">
+        <span class="section-eyebrow">STORY</span>
+        <h2 class="section-title">不拆，<br><em>只是留下。</em></h2>
+        <p class="story__text">
+          昭和时代的浴室瓷砖、矮脚饭桌、榻榻米。<br>
+          留下的不是旧，<br>
+          而是层层叠起的时间。
+        </p>
+        <p class="story__text">
+          <span class="quiet">浴室的墙上，是《神奈川冲浪里》。<br>由屋主亲手绘成。</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ Rooms -->
+<section class="rooms has-kanji" id="rooms">
+  <span class="kanji-bg kanji-bg--left" aria-hidden="true">巡</span>
+  <div class="container">
+    <div class="rooms__intro fade-in">
+      <span class="section-eyebrow">ROOMS</span>
+      <h2 class="section-title">巡游，这一整栋。</h2>
+    </div>
+
+    <div class="rooms__layout">
+      <div class="rooms__plan">
+        <div class="plan-frame">
+          <img class="plan-image" src="../images/平面図/巡平面図.jpg" alt="巡 平面图 — 从玄关到浴室，由南向北的动线">
+          <div class="plan-overlay-wrap" aria-hidden="true">
+            <!-- 各部屋の中心に朱色ドット（active時に点滅） -->
+            <div class="plan-room" data-room="1">
+              <span class="plan-rect" style="left:13%; top:60%;"></span>
+            </div>
+            <div class="plan-room" data-room="2">
+              <span class="plan-rect" style="left:22%; top:41%;"></span>
+            </div>
+            <div class="plan-room" data-room="3">
+              <span class="plan-rect" style="left:41%; top:46%;"></span>
+            </div>
+            <div class="plan-room" data-room="4">
+              <span class="plan-rect" style="left:55%; top:41%;"></span>
+            </div>
+            <div class="plan-room" data-room="5">
+              <span class="plan-rect" style="left:87%; top:41%;"></span>
+            </div>
+            <div class="plan-room" data-room="6">
+              <span class="plan-rect" style="left:71%; top:41%;"></span>
+            </div>
+          </div>
+        </div>
+        <div class="plan-direction">
+          <span>SOUTH 南</span>
+          <span>→</span>
+          <span>NORTH 北</span>
+        </div>
+      </div>
+
+      <div class="rooms__scenes">
+        <article class="scene fade-in" data-room="1">
+          <div class="scene__num">01</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/廊下/IMG_0757.jpg');"></div>
+            <h3 class="scene__title">玄关・走廊</h3>
+            <p class="scene__caption">竹编纹天花与人字拼木地板。<br>古壶与朱色壁纸，引你往深处走。</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="2">
+          <div class="scene__num">02</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/和室/IMG_0750.jpg');"></div>
+            <h3 class="scene__title">和室（被褥）</h3>
+            <p class="scene__caption">全屋唯一有南向阳光的房间。<br>榻榻米上，铺好床单的被褥，按人数备齐。</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="3">
+          <div class="scene__num">03</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/洗面脱衣/IMG_0772.jpg');"></div>
+            <h3 class="scene__title">茶角</h3>
+            <p class="scene__caption">烧一壶水，沏一杯茶。<br>昭和时代的茶具与点心，正等着你。</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="4">
+          <div class="scene__num">04</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/洋室/IMG_0766.jpg');"></div>
+            <h3 class="scene__title">独立房间（双层床）</h3>
+            <p class="scene__caption">「たばこ」「郵便切手類」——香烟、邮票。<br>墙上的昭和招牌，唤醒童心。</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="5">
+          <div class="scene__num">05</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/風呂/IMG_0781.jpg');"></div>
+            <h3 class="scene__title">浴室</h3>
+            <p class="scene__caption">马赛克瓷砖的浴池、枯山水，与《神奈川冲浪里》。<br>像日本的钱汤一样，为一天收尾。</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="6">
+          <div class="scene__num">06</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/洗面脱衣/IMG_0787.jpg');"></div>
+            <h3 class="scene__title">盥洗室・卫生间</h3>
+            <p class="scene__caption">在「清潔整頓」复古招牌之下，<br>智能马桶盖、滚筒洗烘一体机，长途旅行所需的一切。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS — 備品ギャラリー（クリックで拡大） -->
+<section class="details-section" id="details">
+  <div class="details__head fade-in">
+    <span class="section-eyebrow">DETAILS</span>
+    <h2 class="section-title">设施・用品</h2>
+    <p class="details__lead">
+      待客之心，藏在每一件里。<br>
+      昭和的茶具、行灯、招牌、矮脚饭桌。<br>
+      拿起来，看一看，触摸看看。
+    </p>
+  </div>
+
+  <div class="details__grid fade-in" id="detailsGrid">
+    <!-- 初期表示は最大8枚／「もっと見る」で最大16枚まで表示されます。 -->
+    <!-- 写真を追加するときは、このコメントの直下に <img> 行を追加してください。 -->
+    <!-- 例: <img src="../images/備品/IMG_XXXX.jpg" alt="商品名" loading="lazy"> -->
+    <img src="../images/備品/IMG_0773.jpg" alt="昭和风格的点心篮" loading="lazy">
+    <img src="../images/備品/IMG_0774.jpg" alt="昭和风格的花纹茶杯" loading="lazy">
+    <img src="../images/備品/IMG_0786.jpg" alt="「清潔整頓」复古招牌与洗手台" loading="lazy">
+    <img src="../images/備品/20260514025637.jpg" alt="" loading="lazy">
+  </div>
+
+  <div class="details__more fade-in" id="detailsMoreWrap">
+    <button type="button" class="details__more-btn" id="detailsMoreBtn" aria-expanded="false" data-label-more="查看更多 ↓" data-label-close="收起 ↑">查看更多 ↓</button>
+  </div>
+</section>
+
+<!-- ⑤ Three Pleasures -->
+<section class="pleasures" id="pleasures">
+  <div class="container">
+    <div class="pleasures__head fade-in">
+      <span class="section-eyebrow">THREE PLEASURES</span>
+      <h2 class="section-title">寻味，漫步，泡汤，<br>一路巡游。</h2>
+    </div>
+
+    <div class="pleasures__grid">
+      <div class="pleasure-card fade-in">
+        <div class="pleasure-card__img" style="background-image:url('../images/洗面脱衣/IMG_0774.jpg');"></div>
+        <div class="pleasure-card__text">
+          <div class="pleasure-card__verb">EAT — 巡游美食</div>
+          <div class="pleasure-card__kanji">食</div>
+          <p class="pleasure-card__desc">早晨面包房，中午城下町乌冬，夜晚本地居酒屋。姬路的美食，用脚步一一巡游。</p>
+        </div>
+      </div>
+
+      <div class="pleasure-card fade-in">
+        <div class="pleasure-card__img" style="background-image:url('../images/外観/IMG_0970.JPG');"></div>
+        <div class="pleasure-card__text">
+          <div class="pleasure-card__verb">WALK — 巡游街巷</div>
+          <div class="pleasure-card__kanji">街</div>
+          <p class="pleasure-card__desc">步行12分钟到姬路城，5分钟到商店街。走进的不是景区，而是有人生活的城下町。</p>
+        </div>
+      </div>
+
+      <div class="pleasure-card fade-in">
+        <div class="pleasure-card__img" style="background-image:url('../images/風呂/IMG_0779.jpg');"></div>
+        <div class="pleasure-card__text">
+          <div class="pleasure-card__verb">BATHE — 巡游汤池</div>
+          <div class="pleasure-card__kanji">湯</div>
+          <p class="pleasure-card__desc">马赛克瓷砖、壁画与枯山水环绕的独享汤池。一天的最后，深深地泡上一场。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-mid fade-in">
+      <a href="#booking" class="btn btn--outline">立即预订</a>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ Location - 3 sub-sections -->
+<section class="location has-kanji" id="location">
+  <span class="kanji-bg kanji-bg--right" aria-hidden="true">姫</span>
+  <div class="container">
+    <div class="location__head fade-in">
+      <span class="section-eyebrow">LOCATION</span>
+      <h2 class="section-title">巡游姬路。</h2>
+    </div>
+
+    <!-- Google Maps（巡の位置と姫路城・姫路駅の関係を俯瞰） -->
+    <div class="location__map fade-in" aria-label="姬路市总社本町148-1 周边地图">
+      <iframe
+        src="https://maps.google.com/maps?q=%E5%A7%AB%E8%B7%AF%E5%B8%82%E7%B7%8F%E7%A4%BE%E6%9C%AC%E7%94%BA148-1&z=15&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="巡 MEGURU 周边地图"></iframe>
+    </div>
+
+    <!-- 6A 旅程 -->
+    <div class="travel-block fade-in">
+      <h3 class="travel-block__title">旅程之中，恰到好处的一站</h3>
+      <div class="travel-grid">
+        <div class="travel-item">
+          <div class="travel-item__route">京都 → 姬路</div>
+          <div class="travel-item__time">45 min</div>
+          <div class="travel-item__mode">SHINKANSEN</div>
+        </div>
+        <div class="travel-item">
+          <div class="travel-item__route">大阪 → 姬路</div>
+          <div class="travel-item__time">30 min</div>
+          <div class="travel-item__mode">SHINKANSEN</div>
+        </div>
+        <div class="travel-item">
+          <div class="travel-item__route">姬路 → 广岛</div>
+          <div class="travel-item__time">1 hr</div>
+          <div class="travel-item__mode">SHINKANSEN</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6B 姫路城 -->
+    <div class="castle-block fade-in">
+      <div class="castle-block__inner">
+        <div class="castle-block__image" aria-label="姬路城"></div>
+        <div class="castle-block__body">
+          <span class="section-eyebrow">HIMEJI CASTLE</span>
+          <h3 class="travel-block__title" style="text-align:left;">步行12分钟，<br>抵达世界遗产。</h3>
+          <p class="castle-block__lead">
+            日本首个世界文化遗产。<br>
+            以「白鹭城」之名被人喜爱的姬路城。<br>
+            清晨，趁人还不多的时候。<br>
+            或是黄昏，在灯光点亮之时。
+          </p>
+          <ul class="castle-info-list">
+            <li><span class="label">从巡步行</span><span class="value">12 min</span></li>
+            <li><span class="label">从姬路站步行</span><span class="value">17 min</span></li>
+            <li><span class="label">收录</span><span class="value">UNESCO 世界文化遗产</span></li>
+            <li><span class="label">樱花最佳观赏期</span><span class="value">4月上旬</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6C 食べ歩き -->
+    <div class="foodwalk-block fade-in">
+      <span class="section-eyebrow" style="text-align:center;display:block;">FOOD WALK</span>
+      <h3 class="foodwalk-block__title">姬路的美食，<br>用脚步巡游。</h3>
+      <p class="foodwalk-block__lead">
+        不是景区里的餐厅，<br>
+        而是本地人常去的城下町小店。
+      </p>
+
+      <div class="foodwalk-grid">
+        <div class="foodwalk-item">
+          <div class="foodwalk-item__time">早晨 — MORNING</div>
+          <div class="foodwalk-item__category">面包房・咖啡馆</div>
+          <p class="foodwalk-item__desc">城下町的早晨，从本地面包与现煮咖啡开始。</p>
+          <ul class="foodwalk-item__list">
+            <li><a href="https://aligncoffeeroaster.com/" target="_blank" rel="noopener">Align Coffee Roaster</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28016672/" target="_blank" rel="noopener">川端咖啡店（かわばた喫茶店）</a></li>
+            <li><a href="https://www.bread-espresso.jp/shop/bread-espresso-and-himeji.html" target="_blank" rel="noopener">面包与浓缩咖啡与姬路城（パンとエスプレッソと姫路城）</a></li>
+            <li><a href="https://bakery-lamp.com/" target="_blank" rel="noopener">Bakery 燈 Lamp</a></li>
+            <li><a href="https://margueritesp.official.ec" target="_blank" rel="noopener">玛格丽特勺子（マーガレットスプーン）</a></li>
+            <li><a href="https://moku-pan.com/" target="_blank" rel="noopener">MOKUPAN 2号店</a></li>
+            <li><a href="https://www.muche.jp/" target="_blank" rel="noopener">慕修咖啡（カフェ・ド・ムッシュ）</a></li>
+          </ul>
+        </div>
+        <div class="foodwalk-item">
+          <div class="foodwalk-item__time">中午 — NOON</div>
+          <div class="foodwalk-item__category">姬路乌冬・本地风味</div>
+          <p class="foodwalk-item__desc">姬路名物站台荞麦面（えきそば）、明石烧、当地鲜鱼海鲜盖饭。</p>
+          <ul class="foodwalk-item__list">
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28005755/" target="_blank" rel="noopener">赞岐乌冬 面面（讃岐うどん めんめ）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28001943/" target="_blank" rel="noopener">加奈福（かな福）</a></li>
+            <li><a href="https://www.maneki-co.com/products/ekisoba/" target="_blank" rel="noopener">站台荞麦面 大手前店（えきそば 大手前店）</a></li>
+            <li><a href="https://retty.me/area/PRE28/ARE105/SUB10501/100000783816/" target="_blank" rel="noopener">元祖长滨拉面 金豚 东店（元祖長浜ラーメン 金豚 東店）</a></li>
+          </ul>
+        </div>
+        <div class="foodwalk-item">
+          <div class="foodwalk-item__time">夜晚 — NIGHT</div>
+          <div class="foodwalk-item__category">居酒屋・日本酒</div>
+          <p class="foodwalk-item__desc">与本地人并肩而坐，用播州地酒干杯。也别错过姬路关东煮。</p>
+          <ul class="foodwalk-item__list">
+            <li><a href="https://himeji-tachibana.foodre.jp/" target="_blank" rel="noopener">立花（たち花）</a></li>
+            <li><a href="https://www.hotpepper.jp/strJ004536701/" target="_blank" rel="noopener">饭酒 雪常（飯酒 ゆき常）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28066445/" target="_blank" rel="noopener">本町MIYOSHI（本町ミヨシ）</a></li>
+            <li><a href="https://shikisousaku-yuuhi.com/" target="_blank" rel="noopener">和食居酒屋 四季想作 优阳（四季想作 優陽）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28070224/" target="_blank" rel="noopener">以汉堡肉之名 姬路城前店（バーグの名に懸けて 姫路城前店）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28065486/" target="_blank" rel="noopener">炙烤 暖（あぶりやき 暖）</a></li>
+            <li><a href="https://www.senzankaku.net/" target="_blank" rel="noopener">烤肉 千山阁（焼肉 千山閣）</a></li>
+            <li><a href="https://karakaranabe.jp/" target="_blank" rel="noopener">唐唐锅之店 三左卫门店（唐々鍋の店 三左衛門店）</a></li>
+            <li><a href="https://himeji-watanabe.sakura.ne.jp/" target="_blank" rel="noopener">西餐屋渡边（洋食屋ワタナベ）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28058851/" target="_blank" rel="noopener">炸猪排 井上（とんかつ井上）</a></li>
+          </ul>
+        </div>
+        <div class="foodwalk-item">
+          <div class="foodwalk-item__time">顺路 — STREET</div>
+          <div class="foodwalk-item__category">商店街・伴手礼</div>
+          <p class="foodwalk-item__desc">步行5分钟，城下町的商店街。本地点心，与伴手礼。</p>
+          <ul class="foodwalk-item__list">
+            <li><a href="https://himeji-miyuki.com/" target="_blank" rel="noopener">美雪通商店街（みゆき通り商店街）</a></li>
+            <li><a href="https://www.omizo.jp/" target="_blank" rel="noopener">粉彩御沟商店街（パステルおみぞ商店街）</a></li>
+            <li><a href="https://maps.google.com/?q=%E6%9C%AC%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97+%E5%A7%AB%E8%B7%AF" target="_blank" rel="noopener">本町商店街</a></li>
+            <li><a href="https://maps.google.com/?q=%E4%BA%8C%E9%9A%8E%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97+%E5%A7%AB%E8%B7%AF" target="_blank" rel="noopener">二阶町商店街（二階町商店街）</a></li>
+            <li><a href="https://www.nishinikaimachi.com/" target="_blank" rel="noopener">西二阶町商店街（西二階町商店街）</a></li>
+            <li><a href="https://www.sanyo-railway.co.jp/spot/detail.html?spot_id=16" target="_blank" rel="noopener">MOLTI 姬路（MOLTI ひめじ）</a></li>
+            <li><a href="https://himeji-festa.com/" target="_blank" rel="noopener">山阳电车姬路站 高架下（山陽電車姫路駅 高架下）</a></li>
+            <li><a href="https://maps.google.com/?q=%E9%AD%9A%E7%94%BA+%E5%A7%AB%E8%B7%AF" target="_blank" rel="noopener">鱼町通（魚町通）</a></li>
+            <li><a href="http://himeji-noren.jp/" target="_blank" rel="noopener">姬路暖帘街（姫路のれん街）</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ Scarcity -->
+<section class="scarcity has-kanji" id="booking">
+  <span class="kanji-bg kanji-bg--gold" aria-hidden="true">壱</span>
+  <div class="scarcity__inner fade-in">
+    <div class="scarcity__eyebrow">ONE GROUP PER NIGHT</div>
+    <h2 class="scarcity__title">每日一组，<br>整栋独享。</h2>
+    <p class="scarcity__lead">
+      4人入住，每人 5,500日元起。<br>
+      每日仅限一组。整栋屋子，只属于你的家人。
+    </p>
+    <a href="https://beds24.com/booking.php?propid=320453&referer=BookingLink" class="btn btn--large">立即预订</a>
+  </div>
+</section>
+
+<!-- ⑧ Amenities -->
+<section class="amenities">
+  <div class="container">
+    <div class="amenities__head fade-in">
+      <span class="section-eyebrow">AMENITIES</span>
+      <h2 class="section-title">需要的，一应俱全。</h2>
+    </div>
+
+    <div class="amenities__grid fade-in">
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg></div><div class="amenity__label">Wi-Fi</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M3 14h18v2a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-2z"/><path d="M7 14V6a2 2 0 0 1 2-2h2"/><path d="M11 6h2"/></svg></div><div class="amenity__label">浴室</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3"/><path d="M9 12h6l-1 9h-4z"/></svg></div><div class="amenity__label">盥洗室</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M6 4h12v8a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V4z"/><path d="M9 16v4M15 16v4"/></svg></div><div class="amenity__label">智能马桶盖（温水洗净）</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="13" r="5"/><circle cx="12" cy="13" r="2"/><circle cx="8" cy="6.5" r="0.6" fill="currentColor"/><path d="M16 6.5h2"/></svg></div><div class="amenity__label">滚筒洗烘一体机</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M5 11h14"/><path d="M9 7h2M9 15h2"/></svg></div><div class="amenity__label">冰箱</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M5 9h12v8a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M17 11h2a2 2 0 0 1 0 4h-2"/><path d="M8 5c0-1.5 1-2 1-3M12 5c0-1.5 1-2 1-3"/></svg></div><div class="amenity__label">电热水壶</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="6" rx="1"/><path d="M9 9v3l-1 9h8l-1-9V9"/></svg></div><div class="amenity__label">饮水机</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="6"/><path d="M9 15v6"/><path d="M14 13l8 4"/></svg></div><div class="amenity__label">吹风机</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M4 6h16v3H4z"/><path d="M5 9v11h14V9"/><path d="M9 13h6"/><path d="M9 16h6"/></svg></div><div class="amenity__label">床品・寝具<br><span style="font-size:10px;letter-spacing:0.05em;opacity:0.7;">按人数备齐・已铺好</span></div></div>
+      <div class="amenity amenity--statement">
+        <p><strong>我们特意不设电视。</strong><br>围坐矮脚饭桌，度过昭和的夜晚。</p>
+      </div>
+    </div>
+
+    <p class="amenities__note fade-in">
+      <strong>我们特意不设厨房。</strong><br>
+      出门寻味，也是这趟旅程的乐趣之一。<br>
+      <br>
+      床单已铺在被褥上。<br>
+      毛巾与寝具，按人数备齐。
+    </p>
+  </div>
+</section>
+
+<!-- ⑨ Access -->
+<section class="access" id="access">
+  <div class="container">
+    <div class="access__head fade-in">
+      <span class="section-eyebrow">ACCESS &amp; CHECK-IN</span>
+      <h2 class="section-title">交通与<br>入住办理</h2>
+    </div>
+
+    <div class="access__grid">
+      <div class="access__map-mini fade-in" aria-label="姬路市总社本町148-1 地图">
+        <iframe
+          src="https://maps.google.com/maps?q=%E5%A7%AB%E8%B7%AF%E5%B8%82%E7%B7%8F%E7%A4%BE%E6%9C%AC%E7%94%BA148-1&z=17&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="巡 MEGURU 详细地图"></iframe>
+      </div>
+      <div class="fade-in">
+        <ul class="checkin-list">
+          <li><span class="label">CHECK-IN</span><span class="value">15:00 起</span></li>
+          <li><span class="label">CHECK-OUT</span><span class="value">10:00</span></li>
+          <li><span class="label">ENTRY</span><span class="value">无人自助入住（密码开锁）</span></li>
+          <li><span class="label">LANGUAGE</span><span class="value">室内备有 日 / 英 / 韩 / 中 四语说明书</span></li>
+          <li><span class="label">EMERGENCY</span><span class="value">050-8888-7986（24小时对应）</span></li>
+          <li><span class="label">ADDRESS</span><span class="value">姫路市総社本町148-1（姬路市总社本町148-1）</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑩ Final CTA -->
+<section class="final-cta">
+  <div class="final-cta__inner fade-in">
+    <h2 class="final-cta__title">这一夜，<br>为你留着。</h2>
+
+    <div class="cta-primary">
+      <a href="https://beds24.com/booking.php?propid=320453&referer=BookingLink" class="btn btn--large">从官网直接预订 →</a>
+    </div>
+
+    <div class="cta-otas">
+      <div class="cta-otas__label">OR VIA OTA — 各平台预订入口</div>
+      <ul class="cta-otas__list">
+        <li><a href="https://www.booking.com/hotel/jp/ji-lu-cheng-xia-ting-xun.html" target="_blank" rel="noopener">Booking.com</a></li>
+        <li><a href="https://www.agoda.com/h89080328/hotel/himeji-jp.html" target="_blank" rel="noopener">Agoda</a></li>
+        <li><a href="https://travel.rakuten.co.jp/HOTEL/199428/199428.html" hreflang="ja" target="_blank" rel="noopener">乐天旅游</a></li>
+        <li><a href="https://www.jalan.net/yad359773/" hreflang="ja" target="_blank" rel="noopener">Jalan（じゃらん）</a></li>
+        <li><a href="https://travel.yahoo.co.jp/00924329/" hreflang="ja" target="_blank" rel="noopener">Yahoo!旅游</a></li>
+      </ul>
+    </div>
+
+    <div class="brand-pair">
+      <div class="brand-pair__col">
+        <span class="brand-pair__label">YOU ARE HERE — 本住宿</span>
+        <img class="brand-pair__logo" src="../images/logo/巡ロゴ.jpg" alt="巡 MEGURU">
+        <p class="brand-pair__sub">巡 MEGURU — 姬路城下町住宿</p>
+      </div>
+      <div class="brand-pair__divider" aria-hidden="true">／</div>
+      <div class="brand-pair__col">
+        <span class="brand-pair__label">SISTER STAY — 姊妹住宿</span>
+        <a href="https://wabisabi-himeji.jp/" target="_blank" rel="noopener">
+          <div class="brand-pair__name">侘寂 WABISABI</div>
+        </a>
+        <p class="brand-pair__sub">姬路的另一处，传统之美的住宿。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="site-footer__logo"><img src="../images/logo/巡ロゴ.jpg" alt="巡 MEGURU"></div>
+  <div class="site-footer__name">姬路城下町</div>
+  <div class="site-footer__info">
+    〒670-0015 姫路市総社本町148-1（姬路市总社本町148-1）<br>
+    TEL: 050-8888-7986<br>
+    Email: wabisabi.himeji+1@gmail.com
+  </div>
+  <ul class="site-footer__links">
+    <li><a href="#concept">CONCEPT</a></li>
+    <li><a href="#rooms">ROOMS</a></li>
+    <li><a href="#access">ACCESS</a></li>
+    <li><a href="#booking">BOOKING</a></li>
+  </ul>
+  <div class="site-footer__copy">© 2026 MEGURU. All rights reserved.</div>
+</footer>
+
+<a href="#booking" class="floating-cta" id="floatingCta">立即预订 →</a>
+
+<!-- DETAILS ライトボックス -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+  <button class="lightbox__close" id="lightboxClose" aria-label="关闭">×</button>
+  <img src="" alt="">
+</div>
+
+<script src="../assets/script.js" defer></script>
+
+</body>
+</html>

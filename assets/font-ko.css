@@ -1,0 +1,18 @@
+/* 巡 MEGURU 韓国語版フォント上書き / v7（2026-07-20）
+   共通の style.css は Noto Serif JP / Shippori Mincho / Noto Sans JP を前提としているが、
+   これらはハングルの字形を持たないためブラウザの既定フォントに落ちて統一感が崩れる。
+   本ファイルを style.css の後に読み込み、CSS変数だけを差し替えて解決する。
+   日本語フォントは末尾に残す（ブランド字「巡」や店名の日本語表記のため）。 */
+
+:root {
+  --font-serif:  'Noto Serif KR', 'Noto Serif JP', serif;
+  --font-mincho: 'Noto Serif KR', 'Shippori Mincho', 'Noto Serif JP', serif;
+  --font-sans:   'Noto Sans KR', 'Noto Sans JP', system-ui, sans-serif;
+}
+
+/* ブランド字・装飾漢字は日本語フォントを明示（韓国語フォントの漢字字形との差を避ける） */
+.meguru-char,
+.kanji-bg,
+.pleasure-card__kanji {
+  font-family: 'Noto Serif JP', 'Shippori Mincho', serif;
+}

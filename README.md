@@ -16,7 +16,8 @@
 | アクセス | 姫路駅 徒歩17分 / 姫路城 徒歩12分 |
 | 規模 | 1棟（46.44㎡）／定員4名 |
 | 形態 | 簡易宿所・1棟貸し |
-| 公開URL | （未定） |
+| 公開URL | https://castle.wabisabi-himeji.jp/meguru/ |
+| 対応言語 | 日本語（正）／ English ／ 한국어 ／ 简体中文 |
 | 姉妹施設 | [侘寂 wabisabi-himeji.jp](https://wabisabi-himeji.jp/) |
 
 ---
@@ -25,8 +26,17 @@
 
 ```
 meguru/
-├── index.html           ← 公開用ページ（v6 平面図正式版）
-├── 設計書.md            ← LP制作の全設計記録（STEP1〜7 + v1〜v6 履歴）
+├── index.html           ← 日本語版（正）。ここを直したら各言語版にも反映する
+├── en/index.html        ← English
+├── ko/index.html        ← 한국어
+├── zh/index.html        ← 简体中文
+├── assets/
+│   ├── style.css        ← 全言語共通のスタイル（v7で外部化）
+│   ├── script.js        ← 全言語共通のスクリプト（v7で外部化）
+│   ├── font-ko.css      ← 韓国語版のみ追加読み込み（ハングル字形の補完）
+│   └── font-zh.css      ← 中国語版のみ追加読み込み（簡体字字形の補完）
+├── 設計書.md            ← LP制作の全設計記録（STEP1〜7 + v1〜v7 履歴）
+├── archive/             ← 過去版（v6 単一ファイル版など）
 ├── images/
 │   ├── 姫路/             姫路駅前夜景（ヒーロー）
 │   ├── 平面図/           間取り図
@@ -45,9 +55,10 @@ meguru/
 
 ## 技術仕様
 
-- **タイプ**: 静的HTML（単一ファイル）
+- **タイプ**: 静的HTML（言語ごとに1ファイル＋共通 assets/）
 - **フレームワーク**: なし（バニラHTML/CSS/JS）
-- **依存**: Google Fonts（Noto Serif JP / Shippori Mincho / Noto Sans JP）
+- **多言語**: 別ページ方式（`/`, `/en/`, `/ko/`, `/zh/`）。hreflang で相互リンク
+- **依存**: Google Fonts（Noto Serif JP / Shippori Mincho / Noto Sans JP、韓国語版は + Noto Serif/Sans KR、中国語版は + Noto Serif/Sans SC）
 - **対応ブラウザ**: モダンブラウザ全般
 - **モバイル**: ファーストクラス対応
 - **アクセシビリティ**: WCAG 2.2 配慮、`prefers-reduced-motion` 対応
@@ -81,7 +92,13 @@ LP全体を通して「**夜→朝→昼→食卓→夕**」の物語が流れ�
 
 ## デプロイ
 
-GitHub Pages で公開可能（Settings → Pages → Branch: main / root）。
+GitHub Pages（Settings → Pages → Branch: main / root）。`main` に push すると自動反映される。
+
+### 編集するときの注意
+
+- **日本語版 `index.html` が正**。本文（テキスト）を直したら `en/` `ko/` `zh/` の同じ箇所も直す
+- **見た目の修正は `assets/style.css` の1箇所だけ**でよい。4言語すべてに反映される
+- 言語ページは1階層下にあるため、画像・CSS・JSの参照は **`../` 始まり**。日本語版からコピペするときの最頻出ミス
 
 ---
 

@@ -115,9 +115,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .site-header__right { display: flex; align-items: center; gap: 12px; }
 @media (min-width: 900px) { .site-header__right { gap: 24px; } }
 /* v7: 言語スイッチ（実リンク化・モバイルでも常時表示） */
-.lang-switch { display: flex; gap: 8px; font-size: 11px; letter-spacing: 0.12em; }
+.lang-switch { display: flex; gap: 4px; font-size: 11px; letter-spacing: 0.12em; align-items: center; }
 .lang-switch a,
-.lang-switch span { opacity: 0.45; color: inherit; text-decoration: none; }
+.lang-switch span {
+  opacity: 0.45;
+  color: inherit;
+  text-decoration: none;
+  /* 指で押せる大きさを確保する（文字だけだと 17×20px しかなく小さすぎる）。
+     上下の padding は負の margin で打ち消し、見た目の行の高さは変えない。 */
+  padding: 11px 6px;
+  margin: -11px 0;
+}
 .lang-switch a { transition: opacity 0.3s ease, color 0.3s ease; }
 .lang-switch a:hover { opacity: 1; color: var(--color-vermil); }
 .lang-switch span.active { opacity: 1; cursor: default; font-weight: 500; }
@@ -1074,15 +1082,30 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .cta-otas { margin-top: 48px; font-family: var(--font-mincho); }
 .cta-otas__label { font-size: 11px; letter-spacing: 0.4em; margin-bottom: 16px; opacity: 0.85; }
 .cta-otas__list { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; list-style: none; }
-.cta-otas__list li {
-  font-size: 13px;
-  letter-spacing: 0.15em;
+.cta-otas__list li { font-size: 13px; letter-spacing: 0.15em; }
+/* v7: 掲載済みチャネル（実リンク） */
+.cta-otas__list li a {
+  display: block;
+  padding: 8px 16px;
+  border: 1px solid rgba(245,240,232,0.4);
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+.cta-otas__list li a:hover {
+  opacity: 1;
+  background: rgba(245,240,232,0.12);
+  border-color: rgba(245,240,232,0.8);
+}
+/* 未掲載チャネル（グレー表示・クリック不可） */
+.cta-otas__list li.coming {
+  font-style: italic;
   padding: 8px 16px;
   border: 1px solid rgba(245,240,232,0.4);
   opacity: 0.6;
   cursor: not-allowed;
 }
-.cta-otas__list li.coming { font-style: italic; }
 /* v6: Final CTA に「ブランドペア」 — 巡 ロゴ ／ 侘寂 リンク */
 .brand-pair {
   margin: 80px auto 0;

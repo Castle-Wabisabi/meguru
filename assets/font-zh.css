@@ -1,0 +1,18 @@
+/* 巡 MEGURU 中国語（簡体字）版フォント上書き / v7（2026-07-20）
+   共通の style.css は Noto Serif JP / Shippori Mincho / Noto Sans JP を前提としているが、
+   日本語フォントは簡体字の字形（姬・历・术 等）を持たず、字形が混在して読みにくくなる。
+   本ファイルを style.css の後に読み込み、CSS変数だけを差し替えて解決する。
+   日本語フォントは末尾に残す（ブランド字「巡」や店名の日本語表記のため）。 */
+
+:root {
+  --font-serif:  'Noto Serif SC', 'Noto Serif JP', serif;
+  --font-mincho: 'Noto Serif SC', 'Shippori Mincho', 'Noto Serif JP', serif;
+  --font-sans:   'Noto Sans SC', 'Noto Sans JP', system-ui, sans-serif;
+}
+
+/* ブランド字・装飾漢字は日本語フォントを明示（日本語字形を保つ） */
+.meguru-char,
+.kanji-bg,
+.pleasure-card__kanji {
+  font-family: 'Noto Serif JP', 'Shippori Mincho', serif;
+}

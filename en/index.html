@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- ====================================================================
+     巡 MEGURU 公式HP / v6 平面図正式版（2026-04-30）
+     v5からの変更点：
+       1. 平面図を正式版に置換（手書きSVG → 実物の平面図画像）
+          スクロール連動の朱色ハイライトを画像上にオーバーレイで実装
+       2. 部屋表記の統一：
+          - 和室 → 和室（布団）
+          - 寝室（2段ベッド） → 個室（2段ベッド）
+       3. 設備の更新：
+          - 洗濯機 → 洗濯乾燥機（ドラム型）
+          - 「リネン・寝具」を追加（10アイコン目）
+       4. リネン関連の補足コピー追加：
+          シーツは布団にセッティング済み・人数分用意
+       5. 押入は管理側収納のためハイライト対象外
+       6. ヒーロー写真クレジット追加（姫路市フォトバンク／Besso城前と同形式）
+     v6 内 微調整：
+       - 平面図ハイライトの座標ズレを修正（SVG → div+%方式に変更）
+       - 表現を「色塗り矩形」→「ブランド色の点滅ドット」に変更
+       - 最終的に「Walking Dot 自動巡回」方式に転換：
+         スクロール連動を完全に廃止。純CSSアニメーションで
+         玄関→和室→ちゃぶ台→個室→洗面→浴室 を 12秒で1周。
+         JS依存ゼロ・モバイル/デスクトップ完全同一・バグリスクなし
+         「巡」というブランド名を視覚で常時表現
+       - 巡ロゴ画像をヘッダーとフッターに配置：
+         JPG白背景のまま filter:invert + mix-blend-mode で
+         暗背景時は白ロゴ／明背景時は黒ロゴに自動切替
+       - 巡ロゴを最終CTAの「ブランドペア表示」にも追加：
+         「YOU ARE HERE 巡 ／ SISTER STAY 侘寂」の対比構造で
+         旧 sister-link（侘寂のみ目立つ）を再構成
+         ※ヒーロー上部とストーリー透かしは試行後に取り消し
+           （ブランド表現が過剰になるため）
+       - Google Maps を実埋め込み（姫路市総社本町148-1）：
+         ⑥Location 全幅マップ（z=15）／⑨Access 詳細マップ（z=17）
+         API key不要の output=embed 方式、saturate/contrastで色味調整
+       - OGP / Twitter Card / Favicon / Theme Color を一括追加：
+         og:image は night-view 写真の絶対URL（GitHub Pages基点）
+         favicon は 巡ロゴ.jpg を流用（apple-touch-icon も同じ）
+       - 近隣施設.txt の店舗リストを ⑥-C 食べ歩き 4カードへ反映：
+         朝7店／昼4店／夜10店／寄り道9店、計30店
+         placeholder div → 朱色「・」マーカー付きリスト UL に置換
+       - Beds24 予約URLを強CTA 2箇所に紐付け（別タブ・rel=noopener）：
+         ⑦ Scarcity「予約する」／⑩ Final「公式サイトから予約する」
+         ヘッダー・フローティング・中間CTA は #booking アンカーのまま
+         （まず ⑦ Scarcity セクションへスクロールして offer を読ませる動線）
+       - 近隣施設30店をハイパーリンク化（公式 > 食べログ > Google Maps の優先順）：
+         hover時に朱色＋「↗」アイコン表示で外部リンクと一目で分かる
+       - DETAILS 備品ギャラリーセクション追加（④Rooms〜⑤Pleasures の間）：
+         4列正方形サムネイル、クリックで拡大ライトボックス
+         更新方法：images/備品/ に写真追加 + index.html に <img> 1行追記
+         （詳細は images/備品/README.md 参照）
+     ==================================================================== -->
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MEGURU — Himeji Castle Town Stay. A whole-house rental for repeat visitors to Japan: go around the food, the streets, the bath.">
+<title>MEGURU — Himeji Castle Town Stay | Food, streets, bath — go around Himeji</title>
+
+<!-- v7: 正規URL・多言語クラスタ -->
+<link rel="canonical" href="https://castle.wabisabi-himeji.jp/meguru/en/">
+<link rel="alternate" hreflang="ja" href="https://castle.wabisabi-himeji.jp/meguru/">
+<link rel="alternate" hreflang="en" href="https://castle.wabisabi-himeji.jp/meguru/en/">
+<link rel="alternate" hreflang="ko" href="https://castle.wabisabi-himeji.jp/meguru/ko/">
+<link rel="alternate" hreflang="zh-Hans" href="https://castle.wabisabi-himeji.jp/meguru/zh/">
+<link rel="alternate" hreflang="x-default" href="https://castle.wabisabi-himeji.jp/meguru/">
+
+<!-- v6: Favicon（巡ロゴ） -->
+<link rel="icon" type="image/jpeg" href="../images/logo/巡ロゴ.jpg">
+<link rel="apple-touch-icon" href="../images/logo/巡ロゴ.jpg">
+
+<!-- v6: OGP（Open Graph） -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MEGURU — Himeji Castle Town Stay">
+<meta property="og:title" content="MEGURU — Himeji Castle Town Stay | Food, streets, bath — go around Himeji">
+<meta property="og:description" content="A Showa-era house, rented whole. Go around Japan — and one step deeper, into the next Japan.">
+<meta property="og:url" content="https://castle.wabisabi-himeji.jp/meguru/en/">
+<meta property="og:image" content="https://castle.wabisabi-himeji.jp/meguru/images/姫路/night-view_02_003.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- v6: Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MEGURU — Himeji Castle Town Stay">
+<meta name="twitter:description" content="A Showa-era house, rented whole. Somewhere in the middle of your journey around Japan.">
+<meta name="twitter:image" content="https://castle.wabisabi-himeji.jp/meguru/images/姫路/night-view_02_003.jpg">
+
+<!-- v6: Theme color（モバイルブラウザのアドレスバー） -->
+<meta name="theme-color" content="#1F1F1F">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;700&family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="site-header is-on-hero" id="siteHeader">
+  <a href="./" class="site-header__logo" aria-label="MEGURU — Himeji Castle Town Stay"><img src="../images/logo/巡ロゴ.jpg" alt="MEGURU — Himeji Castle Town Stay"></a>
+  <nav class="site-nav">
+    <ul>
+      <li><a href="#concept">Concept</a></li>
+      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#pleasures">Eat / Walk / Bathe</a></li>
+      <li><a href="#location">Around Himeji</a></li>
+      <li><a href="#booking">Book</a></li>
+    </ul>
+  </nav>
+  <div class="site-header__right">
+    <div class="lang-switch">
+      <a href="../" hreflang="ja" lang="ja">JP</a>
+      <span class="active">EN</span>
+      <a href="../ko/" hreflang="ko" lang="ko">KO</a>
+      <a href="../zh/" hreflang="zh-Hans" lang="zh-Hans">ZH</a>
+    </div>
+    <a href="#booking" class="header-cta">Book</a>
+  </div>
+</header>
+
+<!-- ① Hero -->
+<section class="hero">
+  <div class="hero__inner">
+    <div class="hero__lead">HIMEJI CASTLE TOWN STAY</div>
+    <h1 class="hero__title">
+      Go <span class="meguru-char">巡</span> around Japan.<br>Stop here, in the middle.
+    </h1>
+    <div class="hero__deeper">
+      You arrive in the castle town after dark.<br>
+      One step deeper, into the next Japan.
+    </div>
+    <div class="hero__sub">
+      MEGURU — Himeji Castle Town Stay
+      <span class="en">One step deeper into Japan.</span>
+    </div>
+  </div>
+  <div class="hero__scroll">SCROLL</div>
+  <span class="photo-credit">
+    Photo: <a href="https://www.city.himeji.lg.jp/photobank/index.html" target="_blank" rel="noopener">Himeji City Photo Bank</a>
+  </span>
+</section>
+
+<!-- ② Concept -->
+<section class="concept has-kanji" id="concept">
+  <span class="kanji-bg kanji-bg--right" aria-hidden="true">次</span>
+  <div class="container">
+    <span class="concept__eyebrow fade-in">CONCEPT</span>
+    <p class="concept__text fade-in">
+      Tokyo. Osaka. Kyoto.<br>
+      You already know them.<br>
+      So — on to the next Japan.<br>
+      <br>
+      Himeji. A castle town.<br>
+      One whole house, entirely yours.
+    </p>
+  </div>
+</section>
+
+<!-- ③ Story（v4: 墨黒 × 北斎の波） -->
+<section class="story story--dark">
+  <div class="story__wave"><div class="story__wave-img" id="storyWave"></div></div>
+  <div class="container">
+    <div class="story__grid">
+      <div class="story__body fade-in">
+        <span class="section-eyebrow">STORY</span>
+        <h2 class="section-title">Nothing torn out.<br><em>Everything kept.</em></h2>
+        <p class="story__text">
+          Showa-era bath tiles, a chabudai table, tatami.<br>
+          Not oldness, but layers of time —<br>
+          left exactly as they were.
+        </p>
+        <p class="story__text">
+          <span class="quiet">On the bathroom wall, The Great Wave off Kanagawa.<br>Painted by the owner, with his own hands.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ Rooms -->
+<section class="rooms has-kanji" id="rooms">
+  <span class="kanji-bg kanji-bg--left" aria-hidden="true">巡</span>
+  <div class="container">
+    <div class="rooms__intro fade-in">
+      <span class="section-eyebrow">ROOMS</span>
+      <h2 class="section-title">One house, room by room.</h2>
+    </div>
+
+    <div class="rooms__layout">
+      <div class="rooms__plan">
+        <div class="plan-frame">
+          <img class="plan-image" src="../images/平面図/巡平面図.jpg" alt="MEGURU floor plan - the path from entrance to bath, south to north">
+          <div class="plan-overlay-wrap" aria-hidden="true">
+            <!-- 各部屋の中心に朱色ドット（active時に点滅） -->
+            <div class="plan-room" data-room="1">
+              <span class="plan-rect" style="left:13%; top:60%;"></span>
+            </div>
+            <div class="plan-room" data-room="2">
+              <span class="plan-rect" style="left:22%; top:41%;"></span>
+            </div>
+            <div class="plan-room" data-room="3">
+              <span class="plan-rect" style="left:41%; top:46%;"></span>
+            </div>
+            <div class="plan-room" data-room="4">
+              <span class="plan-rect" style="left:55%; top:41%;"></span>
+            </div>
+            <div class="plan-room" data-room="5">
+              <span class="plan-rect" style="left:87%; top:41%;"></span>
+            </div>
+            <div class="plan-room" data-room="6">
+              <span class="plan-rect" style="left:71%; top:41%;"></span>
+            </div>
+          </div>
+        </div>
+        <div class="plan-direction">
+          <span>SOUTH</span>
+          <span>→</span>
+          <span>NORTH</span>
+        </div>
+      </div>
+
+      <div class="rooms__scenes">
+        <article class="scene fade-in" data-room="1">
+          <div class="scene__num">01</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/廊下/IMG_0757.jpg');"></div>
+            <h3 class="scene__title">Entrance &amp; Hallway</h3>
+            <p class="scene__caption">A woven ajiro ceiling, a herringbone floor.<br>Old pottery and vermilion walls draw you inward.</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="2">
+          <div class="scene__num">02</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/和室/IMG_0750.jpg');"></div>
+            <h3 class="scene__title">Tatami Room (Futon)</h3>
+            <p class="scene__caption">The only room in the house the southern light reaches.<br>On the tatami, futons already made up — one for every guest.</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="3">
+          <div class="scene__num">03</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/洗面脱衣/IMG_0772.jpg');"></div>
+            <h3 class="scene__title">Tea Corner</h3>
+            <p class="scene__caption">Boil the water, pour a cup.<br>Showa-era teaware and sweets are waiting.</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="4">
+          <div class="scene__num">04</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/洋室/IMG_0766.jpg');"></div>
+            <h3 class="scene__title">Private Room (Bunk Beds)</h3>
+            <p class="scene__caption">“Tobacco.” “Postage Stamps.”<br>Showa signboards on the wall, and something in you turns eight again.</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="5">
+          <div class="scene__num">05</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/風呂/IMG_0781.jpg');"></div>
+            <h3 class="scene__title">Bath</h3>
+            <p class="scene__caption">A mosaic-tiled tub, a stone garden, and The Great Wave off Kanagawa.<br>Like a Japanese sento, at the end of the day.</p>
+          </div>
+        </article>
+
+        <article class="scene fade-in" data-room="6">
+          <div class="scene__num">06</div>
+          <div class="scene__body">
+            <div class="scene__image" style="background-image:url('../images/洗面脱衣/IMG_0787.jpg');"></div>
+            <h3 class="scene__title">Washroom &amp; Toilet</h3>
+            <p class="scene__caption">Beneath a retro “Clean and Tidy” sign:<br>a bidet toilet, a washer-dryer, and everything a long trip needs.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAILS — 備品ギャラリー（クリックで拡大） -->
+<section class="details-section" id="details">
+  <div class="details__head fade-in">
+    <span class="section-eyebrow">DETAILS</span>
+    <h2 class="section-title">Fixtures &amp; Furnishings</h2>
+    <p class="details__lead">
+      Hospitality, one object at a time.<br>
+      Showa teaware, andon lanterns, signboards, a chabudai table.<br>
+      Pick them up. Look. Touch.
+    </p>
+  </div>
+
+  <div class="details__grid fade-in" id="detailsGrid">
+    <!-- 初期表示は最大8枚／「もっと見る」で最大16枚まで表示されます。 -->
+    <!-- 写真を追加するときは、このコメントの直下に <img> 行を追加してください。 -->
+    <!-- 例: <img src="../images/備品/IMG_XXXX.jpg" alt="商品名" loading="lazy"> -->
+    <img src="../images/備品/IMG_0773.jpg" alt="A basket of Showa-era sweets" loading="lazy">
+    <img src="../images/備品/IMG_0774.jpg" alt="A Showa-era floral teacup" loading="lazy">
+    <img src="../images/備品/IMG_0786.jpg" alt="A retro “Clean and Tidy” sign above the washbasin" loading="lazy">
+    <img src="../images/備品/20260514025637.jpg" alt="" loading="lazy">
+  </div>
+
+  <div class="details__more fade-in" id="detailsMoreWrap">
+    <button type="button" class="details__more-btn" id="detailsMoreBtn" aria-expanded="false" data-label-more="See more ↓" data-label-close="Close ↑">See more ↓</button>
+  </div>
+</section>
+
+<!-- ⑤ Three Pleasures -->
+<section class="pleasures" id="pleasures">
+  <div class="container">
+    <div class="pleasures__head fade-in">
+      <span class="section-eyebrow">THREE PLEASURES</span>
+      <h2 class="section-title">The food, the streets, the bath.<br>Go around them all.</h2>
+    </div>
+
+    <div class="pleasures__grid">
+      <div class="pleasure-card fade-in">
+        <div class="pleasure-card__img" style="background-image:url('../images/洗面脱衣/IMG_0774.jpg');"></div>
+        <div class="pleasure-card__text">
+          <div class="pleasure-card__verb">EAT — The food circuit</div>
+          <div class="pleasure-card__kanji">食</div>
+          <p class="pleasure-card__desc">Bakeries in the morning, castle-town udon at noon, a local izakaya at night. Himeji's food, all on foot.</p>
+        </div>
+      </div>
+
+      <div class="pleasure-card fade-in">
+        <div class="pleasure-card__img" style="background-image:url('../images/外観/IMG_0970.JPG');"></div>
+        <div class="pleasure-card__text">
+          <div class="pleasure-card__verb">WALK — The town circuit</div>
+          <div class="pleasure-card__kanji">街</div>
+          <p class="pleasure-card__desc">Twelve minutes to Himeji Castle, five to the arcades. Not a sightseeing spot — a castle town where people actually live.</p>
+        </div>
+      </div>
+
+      <div class="pleasure-card fade-in">
+        <div class="pleasure-card__img" style="background-image:url('../images/風呂/IMG_0779.jpg');"></div>
+        <div class="pleasure-card__text">
+          <div class="pleasure-card__verb">BATHE — The day's last circuit</div>
+          <div class="pleasure-card__kanji">湯</div>
+          <p class="pleasure-card__desc">Mosaic tiles, a wall painting, a stone garden — a bath for your group alone. Sink in deep at the end of the day.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-mid fade-in">
+      <a href="#booking" class="btn btn--outline">Book now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ Location - 3 sub-sections -->
+<section class="location has-kanji" id="location">
+  <span class="kanji-bg kanji-bg--right" aria-hidden="true">姫</span>
+  <div class="container">
+    <div class="location__head fade-in">
+      <span class="section-eyebrow">LOCATION</span>
+      <h2 class="section-title">Go around Himeji.</h2>
+    </div>
+
+    <!-- Google Maps（巡の位置と姫路城・姫路駅の関係を俯瞰） -->
+    <div class="location__map fade-in" aria-label="Map of the area around 148-1 Soshahonmachi, Himeji">
+      <iframe
+        src="https://maps.google.com/maps?q=%E5%A7%AB%E8%B7%AF%E5%B8%82%E7%B7%8F%E7%A4%BE%E6%9C%AC%E7%94%BA148-1&z=15&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="MEGURU area map"></iframe>
+    </div>
+
+    <!-- 6A 旅程 -->
+    <div class="travel-block fade-in">
+      <h3 class="travel-block__title">Exactly the right place to break your journey</h3>
+      <div class="travel-grid">
+        <div class="travel-item">
+          <div class="travel-item__route">Kyoto → Himeji</div>
+          <div class="travel-item__time">45 min</div>
+          <div class="travel-item__mode">SHINKANSEN</div>
+        </div>
+        <div class="travel-item">
+          <div class="travel-item__route">Osaka → Himeji</div>
+          <div class="travel-item__time">30 min</div>
+          <div class="travel-item__mode">SHINKANSEN</div>
+        </div>
+        <div class="travel-item">
+          <div class="travel-item__route">Himeji → Hiroshima</div>
+          <div class="travel-item__time">1 hr</div>
+          <div class="travel-item__mode">SHINKANSEN</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6B 姫路城 -->
+    <div class="castle-block fade-in">
+      <div class="castle-block__inner">
+        <div class="castle-block__image" aria-label="Himeji Castle"></div>
+        <div class="castle-block__body">
+          <span class="section-eyebrow">HIMEJI CASTLE</span>
+          <h3 class="travel-block__title" style="text-align:left;">Twelve minutes on foot<br>to a World Heritage Site.</h3>
+          <p class="castle-block__lead">
+            Japan's first UNESCO World Cultural Heritage Site.<br>
+            Himeji Castle, loved as the White Heron Castle.<br>
+            Go in the morning, before the crowds.<br>
+            Or in the evening, lit up against the dark.
+          </p>
+          <ul class="castle-info-list">
+            <li><span class="label">Walk from MEGURU</span><span class="value">12 min</span></li>
+            <li><span class="label">Walk from Himeji Station</span><span class="value">17 min</span></li>
+            <li><span class="label">Designation</span><span class="value">UNESCO World Cultural Heritage</span></li>
+            <li><span class="label">Cherry blossom season</span><span class="value">Early April</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6C 食べ歩き -->
+    <div class="foodwalk-block fade-in">
+      <span class="section-eyebrow" style="text-align:center;display:block;">FOOD WALK</span>
+      <h3 class="foodwalk-block__title">Himeji's food,<br>on foot.</h3>
+      <p class="foodwalk-block__lead">
+        Not the restaurants built for tourists —<br>
+        the castle-town places the locals go.
+      </p>
+
+      <div class="foodwalk-grid">
+        <div class="foodwalk-item">
+          <div class="foodwalk-item__time">MORNING</div>
+          <div class="foodwalk-item__category">Bakeries &amp; Coffee Shops</div>
+          <p class="foodwalk-item__desc">Mornings in the castle town start with local bread and freshly brewed coffee.</p>
+          <ul class="foodwalk-item__list">
+            <li><a href="https://aligncoffeeroaster.com/" target="_blank" rel="noopener">Align Coffee Roaster</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28016672/" target="_blank" rel="noopener">Kawabata Kissaten（かわばた喫茶店）</a></li>
+            <li><a href="https://www.bread-espresso.jp/shop/bread-espresso-and-himeji.html" target="_blank" rel="noopener">Pan to Espresso to Himejijo（パンとエスプレッソと姫路城）</a></li>
+            <li><a href="https://bakery-lamp.com/" target="_blank" rel="noopener">Bakery 燈 Lamp</a></li>
+            <li><a href="https://margueritesp.official.ec" target="_blank" rel="noopener">Marguerite Spoon（マーガレットスプーン）</a></li>
+            <li><a href="https://moku-pan.com/" target="_blank" rel="noopener">MOKUPAN Branch 2（MOKUPAN 2号店）</a></li>
+            <li><a href="https://www.muche.jp/" target="_blank" rel="noopener">Café de Monsieur（カフェ・ド・ムッシュ）</a></li>
+          </ul>
+        </div>
+        <div class="foodwalk-item">
+          <div class="foodwalk-item__time">NOON</div>
+          <div class="foodwalk-item__category">Himeji Udon &amp; Local Dishes</div>
+          <p class="foodwalk-item__desc">Himeji's famous ekisoba, akashiyaki, and seafood bowls of local fish.</p>
+          <ul class="foodwalk-item__list">
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28005755/" target="_blank" rel="noopener">Sanuki Udon Menme（讃岐うどん めんめ）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28001943/" target="_blank" rel="noopener">Kanafuku（かな福）</a></li>
+            <li><a href="https://www.maneki-co.com/products/ekisoba/" target="_blank" rel="noopener">Ekisoba Otemae（えきそば 大手前店）</a></li>
+            <li><a href="https://retty.me/area/PRE28/ARE105/SUB10501/100000783816/" target="_blank" rel="noopener">Ganso Nagahama Ramen Kinton Higashi（元祖長浜ラーメン 金豚 東店）</a></li>
+          </ul>
+        </div>
+        <div class="foodwalk-item">
+          <div class="foodwalk-item__time">NIGHT</div>
+          <div class="foodwalk-item__category">Izakaya &amp; Sake</div>
+          <p class="foodwalk-item__desc">Shoulder to shoulder with the locals, a toast with Banshu sake. Himeji oden, too.</p>
+          <ul class="foodwalk-item__list">
+            <li><a href="https://himeji-tachibana.foodre.jp/" target="_blank" rel="noopener">Tachibana（たち花）</a></li>
+            <li><a href="https://www.hotpepper.jp/strJ004536701/" target="_blank" rel="noopener">Meshizake Yukitsune（飯酒 ゆき常）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28066445/" target="_blank" rel="noopener">Hommachi Miyoshi（本町ミヨシ）</a></li>
+            <li><a href="https://shikisousaku-yuuhi.com/" target="_blank" rel="noopener">Washoku Izakaya Shikisousaku Yuuhi（和食居酒屋 四季想作 優陽）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28070224/" target="_blank" rel="noopener">Burg no Na ni Kakete, Himejijo-mae（バーグの名に懸けて 姫路城前店）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28065486/" target="_blank" rel="noopener">Aburiyaki Dan（あぶりやき 暖）</a></li>
+            <li><a href="https://www.senzankaku.net/" target="_blank" rel="noopener">Yakiniku Senzankaku（焼肉 千山閣）</a></li>
+            <li><a href="https://karakaranabe.jp/" target="_blank" rel="noopener">Karakara Nabe, Sanzaemon（唐々鍋の店 三左衛門店）</a></li>
+            <li><a href="https://himeji-watanabe.sakura.ne.jp/" target="_blank" rel="noopener">Yoshokuya Watanabe（洋食屋ワタナベ）</a></li>
+            <li><a href="https://tabelog.com/hyogo/A2805/A280501/28058851/" target="_blank" rel="noopener">Tonkatsu Inoue（とんかつ井上）</a></li>
+          </ul>
+        </div>
+        <div class="foodwalk-item">
+          <div class="foodwalk-item__time">STREET</div>
+          <div class="foodwalk-item__category">Arcades &amp; Souvenirs</div>
+          <p class="foodwalk-item__desc">Five minutes on foot to the castle-town arcades. Local sweets, and something to take home.</p>
+          <ul class="foodwalk-item__list">
+            <li><a href="https://himeji-miyuki.com/" target="_blank" rel="noopener">Miyuki-dori Shopping Street（みゆき通り商店街）</a></li>
+            <li><a href="https://www.omizo.jp/" target="_blank" rel="noopener">Pastel Omizo Shopping Street（パステルおみぞ商店街）</a></li>
+            <li><a href="https://maps.google.com/?q=%E6%9C%AC%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97+%E5%A7%AB%E8%B7%AF" target="_blank" rel="noopener">Hommachi Shopping Street（本町商店街）</a></li>
+            <li><a href="https://maps.google.com/?q=%E4%BA%8C%E9%9A%8E%E7%94%BA%E5%95%86%E5%BA%97%E8%A1%97+%E5%A7%AB%E8%B7%AF" target="_blank" rel="noopener">Nikaimachi Shopping Street（二階町商店街）</a></li>
+            <li><a href="https://www.nishinikaimachi.com/" target="_blank" rel="noopener">Nishi-Nikaimachi Shopping Street（西二階町商店街）</a></li>
+            <li><a href="https://www.sanyo-railway.co.jp/spot/detail.html?spot_id=16" target="_blank" rel="noopener">MOLTI Himeji（MOLTI ひめじ）</a></li>
+            <li><a href="https://himeji-festa.com/" target="_blank" rel="noopener">Under the Tracks, Sanyo Himeji Station（山陽電車姫路駅 高架下）</a></li>
+            <li><a href="https://maps.google.com/?q=%E9%AD%9A%E7%94%BA+%E5%A7%AB%E8%B7%AF" target="_blank" rel="noopener">Uomachi-dori（魚町通）</a></li>
+            <li><a href="http://himeji-noren.jp/" target="_blank" rel="noopener">Himeji Noren-gai（姫路のれん街）</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ Scarcity -->
+<section class="scarcity has-kanji" id="booking">
+  <span class="kanji-bg kanji-bg--gold" aria-hidden="true">壱</span>
+  <div class="scarcity__inner fade-in">
+    <div class="scarcity__eyebrow">ONE GROUP PER NIGHT</div>
+    <h2 class="scarcity__title">One group.<br>One whole house.</h2>
+    <p class="scarcity__lead">
+      From ¥5,500 per person when four of you stay.<br>
+      One group per night. The whole house, for your family alone.
+    </p>
+    <a href="https://beds24.com/booking.php?propid=320453&referer=BookingLink" class="btn btn--large">Book now</a>
+  </div>
+</section>
+
+<!-- ⑧ Amenities -->
+<section class="amenities">
+  <div class="container">
+    <div class="amenities__head fade-in">
+      <span class="section-eyebrow">AMENITIES</span>
+      <h2 class="section-title">Everything you need.</h2>
+    </div>
+
+    <div class="amenities__grid fade-in">
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg></div><div class="amenity__label">Wi-Fi</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M3 14h18v2a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4v-2z"/><path d="M7 14V6a2 2 0 0 1 2-2h2"/><path d="M11 6h2"/></svg></div><div class="amenity__label">Bath</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="6" r="3"/><path d="M9 12h6l-1 9h-4z"/></svg></div><div class="amenity__label">Washroom</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M6 4h12v8a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V4z"/><path d="M9 16v4M15 16v4"/></svg></div><div class="amenity__label">Bidet toilet</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><circle cx="12" cy="13" r="5"/><circle cx="12" cy="13" r="2"/><circle cx="8" cy="6.5" r="0.6" fill="currentColor"/><path d="M16 6.5h2"/></svg></div><div class="amenity__label">Washer-dryer (drum type)</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M5 11h14"/><path d="M9 7h2M9 15h2"/></svg></div><div class="amenity__label">Refrigerator</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M5 9h12v8a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M17 11h2a2 2 0 0 1 0 4h-2"/><path d="M8 5c0-1.5 1-2 1-3M12 5c0-1.5 1-2 1-3"/></svg></div><div class="amenity__label">Electric kettle</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="6" rx="1"/><path d="M9 9v3l-1 9h8l-1-9V9"/></svg></div><div class="amenity__label">Water server</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="6"/><path d="M9 15v6"/><path d="M14 13l8 4"/></svg></div><div class="amenity__label">Hair dryer</div></div>
+      <div class="amenity"><div class="amenity__icon"><svg viewBox="0 0 24 24"><path d="M4 6h16v3H4z"/><path d="M5 9v11h14V9"/><path d="M9 13h6"/><path d="M9 16h6"/></svg></div><div class="amenity__label">Linens &amp; bedding<br><span style="font-size:10px;letter-spacing:0.05em;opacity:0.7;">Made up, one set per guest</span></div></div>
+      <div class="amenity amenity--statement">
+        <p><strong>There is no TV. By design.</strong><br>Just a Showa evening around the chabudai.</p>
+      </div>
+    </div>
+
+    <p class="amenities__note fade-in">
+      <strong>There is no kitchen. By design.</strong><br>
+      Going out to eat is part of the journey too.<br>
+      <br>
+      Sheets come already made up on the futons.<br>
+      Towels and bedding are provided for every guest.
+    </p>
+  </div>
+</section>
+
+<!-- ⑨ Access -->
+<section class="access" id="access">
+  <div class="container">
+    <div class="access__head fade-in">
+      <span class="section-eyebrow">ACCESS &amp; CHECK-IN</span>
+      <h2 class="section-title">Access and<br>Check-in</h2>
+    </div>
+
+    <div class="access__grid">
+      <div class="access__map-mini fade-in" aria-label="Map of 148-1 Soshahonmachi, Himeji">
+        <iframe
+          src="https://maps.google.com/maps?q=%E5%A7%AB%E8%B7%AF%E5%B8%82%E7%B7%8F%E7%A4%BE%E6%9C%AC%E7%94%BA148-1&z=17&output=embed"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="MEGURU detailed map"></iframe>
+      </div>
+      <div class="fade-in">
+        <ul class="checkin-list">
+          <li><span class="label">CHECK-IN</span><span class="value">From 15:00</span></li>
+          <li><span class="label">CHECK-OUT</span><span class="value">10:00</span></li>
+          <li><span class="label">ENTRY</span><span class="value">Unstaffed self check-in (keypad code)</span></li>
+          <li><span class="label">LANGUAGE</span><span class="value">Printed guides in Japanese / English / Korean / Chinese in the house</span></li>
+          <li><span class="label">EMERGENCY</span><span class="value">050-8888-7986 (24h)</span></li>
+          <li><span class="label">ADDRESS</span><span class="value">148-1 Soshahonmachi, Himeji, Hyogo</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑩ Final CTA -->
+<section class="final-cta">
+  <div class="final-cta__inner fade-in">
+    <h2 class="final-cta__title">This one night<br>is yours.</h2>
+
+    <div class="cta-primary">
+      <a href="https://beds24.com/booking.php?propid=320453&referer=BookingLink" class="btn btn--large">Book on the official site →</a>
+    </div>
+
+    <div class="cta-otas">
+      <div class="cta-otas__label">OR VIA OTA — Book through these partners</div>
+      <ul class="cta-otas__list">
+        <li><a href="https://www.booking.com/hotel/jp/ji-lu-cheng-xia-ting-xun.html" target="_blank" rel="noopener">Booking.com</a></li>
+        <li><a href="https://www.agoda.com/h89080328/hotel/himeji-jp.html" target="_blank" rel="noopener">Agoda</a></li>
+        <li><a href="https://travel.rakuten.co.jp/HOTEL/199428/199428.html" hreflang="ja" target="_blank" rel="noopener">Rakuten Travel</a></li>
+        <li><a href="https://www.jalan.net/yad359773/" hreflang="ja" target="_blank" rel="noopener">Jalan</a></li>
+        <li><a href="https://travel.yahoo.co.jp/00924329/" hreflang="ja" target="_blank" rel="noopener">Yahoo! Travel</a></li>
+      </ul>
+    </div>
+
+    <div class="brand-pair">
+      <div class="brand-pair__col">
+        <span class="brand-pair__label">YOU ARE HERE — This stay</span>
+        <img class="brand-pair__logo" src="../images/logo/巡ロゴ.jpg" alt="MEGURU — Himeji Castle Town Stay">
+        <p class="brand-pair__sub">MEGURU — Himeji Castle Town Stay</p>
+      </div>
+      <div class="brand-pair__divider" aria-hidden="true">／</div>
+      <div class="brand-pair__col">
+        <span class="brand-pair__label">SISTER STAY — Our sister property</span>
+        <a href="https://wabisabi-himeji.jp/" target="_blank" rel="noopener">
+          <div class="brand-pair__name">侘寂 WABISABI</div>
+        </a>
+        <p class="brand-pair__sub">Another Himeji stay, in classic Japanese beauty.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="site-footer__logo"><img src="../images/logo/巡ロゴ.jpg" alt="MEGURU — Himeji Castle Town Stay"></div>
+  <div class="site-footer__name">Himeji Castle Town</div>
+  <div class="site-footer__info">
+    148-1 Soshahonmachi, Himeji, Hyogo 670-0015<br>
+    TEL: 050-8888-7986<br>
+    Email: wabisabi.himeji+1@gmail.com
+  </div>
+  <ul class="site-footer__links">
+    <li><a href="#concept">CONCEPT</a></li>
+    <li><a href="#rooms">ROOMS</a></li>
+    <li><a href="#access">ACCESS</a></li>
+    <li><a href="#booking">BOOKING</a></li>
+  </ul>
+  <div class="site-footer__copy">© 2026 MEGURU. All rights reserved.</div>
+</footer>
+
+<a href="#booking" class="floating-cta" id="floatingCta">Book now →</a>
+
+<!-- DETAILS ライトボックス -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close">×</button>
+  <img src="" alt="">
+</div>
+
+<script src="../assets/script.js" defer></script>
+
+</body>
+</html>

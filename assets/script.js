@@ -66,9 +66,12 @@ if (detailsGrid && detailsMoreBtn) {
   if (totalImgs <= 8) {
     detailsMoreWrap.style.display = 'none';
   }
+  // v7: ラベルはHTML側の data-label-* から取る（4言語で本ファイルを共有するため）
+  const labelMore = detailsMoreBtn.dataset.labelMore || 'もっと見る ↓';
+  const labelClose = detailsMoreBtn.dataset.labelClose || '閉じる ↑';
   detailsMoreBtn.addEventListener('click', () => {
     const isOpen = detailsGrid.classList.toggle('show-all');
-    detailsMoreBtn.textContent = isOpen ? '閉じる ↑' : 'もっと見る ↓';
+    detailsMoreBtn.textContent = isOpen ? labelClose : labelMore;
     detailsMoreBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     if (!isOpen) {
       // 閉じる時、グリッド先頭へスムーススクロール（下のスペースに取り残されないため）
