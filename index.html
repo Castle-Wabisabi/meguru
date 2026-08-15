@@ -505,6 +505,40 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ⑥.5 Reading（STAY HIMEJI からの記事配信） -->
+<!--
+  姫路の読みものは stay-himeji.jp（STAY HIMEJI）に集約し、ここには抜粋カードだけを出す。
+  記事の実体は向こうにあり、本文は持ってこない（同じ文章を2か所に置かないため）。
+  仕組み：https://stay-himeji.jp/embed/articles.js（正は GitHub stay-himejistyle/stay-himejistyle-wp の embed/）
+  取得に失敗したときは何も描かない作りなので、このページが壊れることはない。
+  ※日本語ページのみ。記事が日本語のため en/ko/zh には入れていない。
+-->
+<section class="reading" id="reading">
+  <div class="container">
+    <div class="reading__head fade-in">
+      <span class="section-eyebrow">READING</span>
+      <h2 class="section-title">姫路を、読む。</h2>
+    </div>
+
+    <style>
+      .reading { padding: var(--space-section) 0; }
+      .reading__head { margin-bottom: clamp(28px, 4vw, 48px); }
+      /* 配信カードの配色を巡（生成り・墨・朱）に合わせる */
+      #reading .shj-root {
+        --shj-ink: #1F1F1F;
+        --shj-soft: #3A3A3A;
+        --shj-nezu: #A89070;
+        --shj-line: rgba(31, 31, 31, 0.12);
+        --shj-fuji: #8B3A2F;
+        --shj-panel: #FAF7F2;
+        --shj-mincho: 'Shippori Mincho', 'Noto Serif JP', serif;
+        --shj-gothic: 'Noto Sans JP', system-ui, sans-serif;
+      }
+    </style>
+    <script src="https://stay-himeji.jp/embed/articles.js" data-limit="3" data-heading="" defer></script>
+  </div>
+</section>
+
 <!-- ⑦ Scarcity -->
 <section class="scarcity has-kanji" id="booking">
   <span class="kanji-bg kanji-bg--gold" aria-hidden="true">壱</span>
