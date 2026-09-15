@@ -250,7 +250,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  margin-top: 32px;
+  margin-top: 0;
   padding: 9px 20px 9px 10px;
   max-width: calc(100vw - 48px);
   border: 1px solid rgba(245, 240, 232, 0.4);
@@ -292,6 +292,21 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   color: var(--color-base);
 }
 @media (max-width: 400px) { .hero__badge { gap: 7px; padding: 8px 14px 8px 8px; letter-spacing: 0.06em; } }
+/* v9: バッジを複数並べる器（直前予約割＋駐車場）。狭い画面では折り返す */
+.hero__badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 12px;
+  margin-top: 32px;
+}
+/* v9: スマホではヒーロー上下に余白を確保。バッジが2段になると、
+   見出しの長い言語（英語）で固定ヘッダーの裏に潜り、下はSCROLL表示に重なっていた。
+   下余白136px = SCROLL表示（下40px＋高さ76px）と写真クレジット（下70px＋高さ26px）の両方を避ける値 */
+@media (max-width: 600px) {
+  .hero { padding-top: 80px; padding-bottom: 136px; }
+  .hero__badges { margin-top: 24px; }
+}
 .hero__scroll {
   position: absolute;
   bottom: 40px;
@@ -986,6 +1001,49 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .scarcity .btn { background: var(--color-base); color: var(--color-vermil); border-color: var(--color-base); }
 .scarcity .btn:hover { background: transparent; color: var(--color-base); }
+/* v9: 直前予約割（公式サイト限定）の料金カード。朱地の上に和紙色の細枠 */
+.lastminute {
+  max-width: 440px;
+  margin: -16px auto 48px;
+  padding: 28px 24px 26px;
+  border: 1px solid rgba(245, 240, 232, 0.55);
+  font-family: var(--font-mincho);
+}
+.lastminute__tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--color-base);
+  color: var(--color-vermil);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+.lastminute__name {
+  margin-top: 14px;
+  font-size: clamp(16px, 2vw, 19px);
+  letter-spacing: 0.3em;
+}
+.lastminute__price {
+  margin-top: 6px;
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5.5vw, 3rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+}
+.lastminute__unit { display: block; font-family: var(--font-mincho); font-size: 13px; letter-spacing: 0.15em; line-height: 1.6; }
+.lastminute__yen { font-size: 0.45em; margin-left: 4px; }
+.lastminute__tax { font-family: var(--font-mincho); font-size: 12px; letter-spacing: 0.1em; margin-left: 4px; opacity: 0.85; }
+.lastminute__term {
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(245, 240, 232, 0.3);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  line-height: 1.8;
+}
 
 /* ⑧ Amenities */
 .amenities { padding: var(--space-section) 0; background: var(--color-base); }
@@ -1127,6 +1185,16 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .cta-primary { margin-bottom: 32px; }
 .cta-primary .btn { background: var(--color-base); color: var(--color-vermil); border-color: var(--color-base); min-width: 320px; }
 .cta-primary .btn:hover { background: var(--color-ink); color: var(--color-base); border-color: var(--color-ink); }
+/* v9: 公式予約ボタン直下の直前予約割の一行 */
+.cta-primary__note {
+  margin-top: 16px;
+  font-family: var(--font-mincho);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  line-height: 1.8;
+  opacity: 0.92;
+}
+.cta-primary__note strong { font-weight: 600; letter-spacing: 0.15em; }
 .cta-otas { margin-top: 48px; font-family: var(--font-mincho); }
 .cta-otas__label { font-size: 11px; letter-spacing: 0.4em; margin-bottom: 16px; opacity: 0.85; }
 .cta-otas__list { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; list-style: none; }
