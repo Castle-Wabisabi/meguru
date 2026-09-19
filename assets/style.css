@@ -1045,6 +1045,59 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   line-height: 1.8;
 }
 
+/* v10: 旅行予約キャンセル保険（PR・任意／お客様が別途申込）。予約CTAの下に置く控えめなカード。
+   巡自身の予約ボタンを主役に保つため、朱地の上に細枠のみで低コントラストにする */
+.cancel-ins {
+  max-width: 480px;
+  margin: 44px auto 0;
+  padding: 22px 26px 24px;
+  border: 1px solid rgba(245, 240, 232, 0.4);
+  font-family: var(--font-mincho);
+}
+.cancel-ins__pr {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 2px 9px;
+  border: 1px solid rgba(245, 240, 232, 0.5);
+  opacity: 0.85;
+  margin-bottom: 16px;
+}
+.cancel-ins__title {
+  font-size: clamp(16px, 2.2vw, 20px);
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+.cancel-ins__lead {
+  font-size: 13px;
+  line-height: 1.95;
+  letter-spacing: 0.05em;
+  opacity: 0.92;
+  margin-bottom: 20px;
+}
+.cancel-ins__link {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  padding: 10px 24px;
+  border: 1px solid rgba(245, 240, 232, 0.7);
+  color: var(--color-base);
+  text-decoration: none;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.cancel-ins__link:hover { background: var(--color-base); color: var(--color-vermil); }
+.cancel-ins__note {
+  margin-top: 18px;
+  font-size: 11px;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  opacity: 0.7;
+}
+
 /* ⑧ Amenities */
 .amenities { padding: var(--space-section) 0; background: var(--color-base); }
 .amenities__head { text-align: center; padding: 0 24px; margin-bottom: 64px; }
