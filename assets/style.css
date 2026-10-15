@@ -146,6 +146,67 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (min-width: 900px) {
   .site-nav { display: block; }
   .lang-switch { gap: 12px; font-size: 12px; letter-spacing: 0.2em; }
+  .menu-toggle { display: none; }
+}
+
+/* v11: モバイル用メニュー（900px未満）。ハンバーガー → 全画面メニュー。
+   PC用の .site-nav をそのまま全画面オーバーレイとして使い回す。 */
+.menu-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  margin: -8px -10px -8px 0;
+  position: relative;
+  z-index: 2;
+  color: var(--color-ink);
+}
+.site-header.is-on-hero .menu-toggle,
+.site-header.menu-open .menu-toggle { color: var(--color-base); }
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.3s ease;
+}
+.site-header.menu-open .menu-toggle span:first-child { transform: translateY(3.75px) rotate(45deg); }
+.site-header.menu-open .menu-toggle span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
+
+@media (max-width: 899px) {
+  .site-header { padding: 12px 16px; }
+  .header-cta { padding: 8px 14px; letter-spacing: 0.12em; }
+  .site-header__logo,
+  .site-header__right { position: relative; z-index: 2; }
+  .site-nav {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    background: rgba(31,31,31,0.97);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+  }
+  .site-header.menu-open .site-nav { opacity: 1; visibility: visible; }
+  .site-nav ul { flex-direction: column; align-items: center; gap: 6px; }
+  .site-header .site-nav a {
+    display: block;
+    padding: 14px 24px;
+    font-size: 20px;
+    letter-spacing: 0.3em;
+    color: var(--color-base);
+  }
+  /* メニューを開いている間は暗い背景に合わせて白抜きにする */
+  .site-header.menu-open { background: transparent; box-shadow: none; }
+  .site-header.menu-open .lang-switch { color: var(--color-base); }
+  .site-header.menu-open .site-header__logo img { filter: invert(1); mix-blend-mode: screen; }
 }
 
 /* ① Hero */

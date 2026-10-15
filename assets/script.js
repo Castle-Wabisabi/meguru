@@ -13,6 +13,27 @@ window.addEventListener('scroll', () => {
   header.classList.toggle('is-on-hero', y < heroBottom);
 });
 
+// v11: モバイルのハンバーガーメニュー（900px未満で表示）
+const menuToggle = document.getElementById('menuToggle');
+if (menuToggle) {
+  const setMenu = (open) => {
+    header.classList.toggle('menu-open', open);
+    menuToggle.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+    // JP版は ScrollSmoother が入るため、背面のスクロールも止める
+    const smoother = window.ScrollSmoother && window.ScrollSmoother.get();
+    if (smoother) smoother.paused(open);
+  };
+  menuToggle.addEventListener('click', () => setMenu(!header.classList.contains('menu-open')));
+  document.querySelectorAll('#siteNav a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && header.classList.contains('menu-open')) setMenu(false);
+  });
+  window.matchMedia('(min-width: 900px)').addEventListener('change', (e) => {
+    if (e.matches) setMenu(false);
+  });
+}
+
 const fadeObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
