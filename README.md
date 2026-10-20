@@ -77,7 +77,7 @@ meguru/
 LP全体を通して「**夜→朝→昼→食卓→夕**」の物語が流れる：
 1. ヒーロー：姫路の夜景に到着
 2. ストーリー：墨黒に北斎の波が立ち上がる
-3. ルーム：南→北の動線をWalking Dotで巡る（12秒ループ）
+3. ルーム：南→北の動線を平面図と部屋ごとの写真で巡る（v12で Walking Dot の点滅は廃止）
 4. 三つの楽しみ：食・街・湯
 5. 立地：姫路城＋食べ歩き
 6. 最終CTA：朱×金の夕焼け
@@ -89,7 +89,7 @@ LP全体を通して「**夜→朝→昼→食卓→夕**」の物語が流れ�
 ### 🎨 デザインキーワード
 - Organic Minimalism / Noise Texture / Scroll-driven Animations
 - Kinetic Typography / Subgrid + Fluid Typography
-- 「巡」のWalking Dot自動巡回（純CSS、JS不要）
+- ~~「巡」のWalking Dot自動巡回~~（v12で廃止：意味が伝わりにくいため）
 
 詳細は [`設計書.md`](./設計書.md) 参照。
 

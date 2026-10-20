@@ -526,7 +526,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 @media (min-width: 900px) {
   .rooms__plan { position: sticky; top: 100px; }
 }
-/* v6: 正式平面図画像 + Walking Dot 自動巡回（純CSS / JS不要） */
+/* v6: 正式平面図画像（v12: Walking Dot の点滅アニメーションは廃止） */
 .plan-frame {
   position: relative;
   width: 100%;
@@ -537,46 +537,6 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   width: 100%;
   height: auto;
   display: block;
-}
-.plan-overlay-wrap {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.plan-room { position: absolute; inset: 0; }
-.plan-rect {
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background: var(--color-vermil);
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  animation: meguru-walk-pulse 12s ease-in-out infinite;
-}
-/* 巡る順：玄関(南)→和室→ちゃぶ台→個室→洗面→浴室(北) を 12秒で1周（各部屋 2秒） */
-.plan-room[data-room="1"] .plan-rect { animation-delay:   0s; }
-.plan-room[data-room="2"] .plan-rect { animation-delay: -10s; }
-.plan-room[data-room="3"] .plan-rect { animation-delay:  -8s; }
-.plan-room[data-room="4"] .plan-rect { animation-delay:  -6s; }
-.plan-room[data-room="6"] .plan-rect { animation-delay:  -4s; }
-.plan-room[data-room="5"] .plan-rect { animation-delay:  -2s; }
-
-@keyframes meguru-walk-pulse {
-  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7); box-shadow: 0 0 0 0 rgba(139,58,47,0); }
-  3%   { opacity: 1; transform: translate(-50%, -50%) scale(1);   box-shadow: 0 0 0 0 rgba(139,58,47,0.7); }
-  10%  { opacity: 1; transform: translate(-50%, -50%) scale(1.18); box-shadow: 0 0 0 20px rgba(139,58,47,0); }
-  17%  { opacity: 0; transform: translate(-50%, -50%) scale(1);   box-shadow: 0 0 0 0 rgba(139,58,47,0); }
-  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); box-shadow: 0 0 0 0 rgba(139,58,47,0); }
-}
-
-/* アクセシビリティ：モーション軽減時は全ドット静止表示 */
-@media (prefers-reduced-motion: reduce) {
-  .plan-rect {
-    animation: none;
-    opacity: 0.55;
-    background: var(--color-vermil);
-  }
 }
 .plan-direction {
   font-family: var(--font-mincho);
