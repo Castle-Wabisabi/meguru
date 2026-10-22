@@ -598,14 +598,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .details__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
   padding: 0 24px;
   max-width: var(--max-width);
   margin: 0 auto;
 }
-@media (max-width: 800px) { .details__grid { grid-template-columns: repeat(3, 1fr); gap: 6px; } }
-@media (max-width: 420px) { .details__grid { grid-template-columns: repeat(2, 1fr); } }
+/* v13: PC・タブレットは5列（10枚で2段）。スマホは2列（10枚で5段・端数が出ない） */
+@media (max-width: 600px) { .details__grid { grid-template-columns: repeat(2, 1fr); gap: 6px; } }
 .details__grid img {
   width: 100%;
   aspect-ratio: 1;
@@ -615,11 +615,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   display: block;
 }
 .details__grid img:hover { opacity: 0.88; transform: scale(1.04); }
-/* 初期表示は8枚まで。9〜16枚目は「もっと見る」ボタンで展開 */
-.details__grid img:nth-child(n+9) { display: none; }
-.details__grid.show-all img:nth-child(n+9):nth-child(-n+16) { display: block; }
-/* 17枚目以降は常に非表示（上限） */
-.details__grid img:nth-child(n+17) { display: none !important; }
+/* 初期表示は10枚まで（5列×2段）。11〜20枚目は「もっと見る」ボタンで展開 */
+.details__grid img:nth-child(n+11) { display: none; }
+.details__grid.show-all img:nth-child(n+11):nth-child(-n+20) { display: block; }
+/* 21枚目以降は常に非表示（上限） */
+.details__grid img:nth-child(n+21) { display: none !important; }
 
 /* 「もっと見る」ボタン */
 .details__more {

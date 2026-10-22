@@ -77,14 +77,14 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-// v6: DETAILS「もっと見る」ボタン（初期8枚→最大16枚）
+// v6: DETAILS「もっと見る」ボタン（v13: 初期10枚→最大20枚）
 const detailsGrid = document.getElementById('detailsGrid');
 const detailsMoreWrap = document.getElementById('detailsMoreWrap');
 const detailsMoreBtn = document.getElementById('detailsMoreBtn');
 if (detailsGrid && detailsMoreBtn) {
   const totalImgs = detailsGrid.querySelectorAll('img').length;
-  // 写真が8枚以下ならボタン不要
-  if (totalImgs <= 8) {
+  // 写真が10枚以下ならボタン不要
+  if (totalImgs <= 10) {
     detailsMoreWrap.style.display = 'none';
   }
   // v7: ラベルはHTML側の data-label-* から取る（4言語で本ファイルを共有するため）
